@@ -75,7 +75,90 @@
     <header class="header py-6">
         <div class="max-w-[1400px] mx-auto px-6 flex justify-between items-center">
             <a href="index.html" class="flex items-center"><svg class="w-8 h-8" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.5 15V25M17.5 10V30M22.5 12.5V27.5M27.5 17.5V22.5M7.5 17.5V22.5M2.5 20H40" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            <nav class="hidden lg:flex gap-8"><a href="headphones.html" class="nav-link">Headphones</a><a href="earphones.html" class="nav-link">Earphones</a><a href="speakers.html" class="nav-link">Speakers</a><a href="accessories.html" class="nav-link">Accessories</a><a href="about.html" class="nav-link">Our Story</a><a href="blog.html" class="nav-link">Journal</a><a href="contact.html" class="nav-link">Contact</a></nav>
+            <nav class="hidden lg:flex gap-8 items-center">
+              <!-- Shop Dropdown -->
+              <div class="group relative">
+                <a href="#" class="nav-link py-4">Shop</a>
+                <div class="absolute top-full left-1/2 -translate-x-1/2 w-[860px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2 z-50 text-gray-900">
+                  <div class="flex gap-8">
+                    <div class="w-[220px] flex flex-col gap-1 border-r border-gray-100 pr-6">
+                      <a href="headphones.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition">
+                        <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/nav-headphones-icon.svg?v=1741052467&width=42" class="w-[28px] h-[28px]" alt="">
+                        <span class="font-semibold text-sm">Headphones</span>
+                      </a>
+                      <a href="earphones.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition">
+                        <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/nav-earphones-icon.svg?v=1741052466&width=42" class="w-[28px] h-[28px]" alt="">
+                        <span class="font-semibold text-sm">Earphones</span>
+                      </a>
+                      <a href="speakers.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition">
+                        <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/nav-speakers-icon.svg?v=1741052533&width=42" class="w-[28px] h-[28px]" alt="">
+                        <span class="font-semibold text-sm">Speakers</span>
+                      </a>
+                      <a href="accessories.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition">
+                        <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/nav-accessories-icon.svg?v=1741052467&width=42" class="w-[28px] h-[28px]" alt="">
+                        <span class="font-semibold text-sm">Accessories</span>
+                      </a>
+                    </div>
+                    <div class="flex-1">
+                      <div class="grid grid-cols-2 gap-4">
+                        <a href="headphones.html" class="flex items-center gap-2 p-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-gray-700">View All Headphones <span class="text-gray-400">&rarr;</span></a>
+                        <a href="earphones.html" class="flex items-center gap-2 p-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-gray-700">View All Earphones <span class="text-gray-400">&rarr;</span></a>
+                        <a href="speakers.html" class="flex items-center gap-2 p-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-gray-700">View All Speakers <span class="text-gray-400">&rarr;</span></a>
+                        <a href="accessories.html" class="flex items-center gap-2 p-3 rounded-xl hover:bg-gray-50 transition text-sm font-medium text-gray-700">View All Accessories <span class="text-gray-400">&rarr;</span></a>
+                      </div>
+                      <div class="mt-6 pt-4 border-t border-gray-100">
+                        <a href="#" class="inline-flex items-center gap-2 text-sm font-semibold text-gray-900 hover:text-gray-600 transition">
+                          <i class="fas fa-box-open"></i> Build your bundle
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Collections Dropdown -->
+              <div class="group relative">
+                <a href="#" class="nav-link py-4">Collections</a>
+                <div class="absolute top-full left-1/2 -translate-x-1/2 w-[640px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2 z-50 text-gray-900">
+                  <div class="grid grid-cols-2 gap-3">
+                    <a href="headphones.html" class="p-4 rounded-xl hover:bg-gray-50 transition">
+                      <span class="block font-semibold text-sm mb-1">Headphones</span>
+                      <span class="text-xs text-gray-500">Surround yourself in sound.</span>
+                    </a>
+                    <a href="earphones.html" class="p-4 rounded-xl hover:bg-gray-50 transition">
+                      <span class="block font-semibold text-sm mb-1">Earphones</span>
+                      <span class="text-xs text-gray-500">Small design, great sound.</span>
+                    </a>
+                    <a href="speakers.html" class="p-4 rounded-xl hover:bg-gray-50 transition">
+                      <span class="block font-semibold text-sm mb-1">Speakers</span>
+                      <span class="text-xs text-gray-500">The world's most immersive sound.</span>
+                    </a>
+                    <a href="accessories.html" class="p-4 rounded-xl hover:bg-gray-50 transition">
+                      <span class="block font-semibold text-sm mb-1">Accessories</span>
+                      <span class="text-xs text-gray-500">Optimal condition for years.</span>
+                    </a>
+                    <a href="#" class="p-4 rounded-xl hover:bg-gray-50 transition col-span-2 border-t border-gray-100 mt-1">
+                      <span class="block font-semibold text-sm mb-1">All Collections</span>
+                      <span class="text-xs text-gray-500">Check out all our collections.</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <!-- Explore Dropdown -->
+              <div class="group relative">
+                <a href="#" class="nav-link py-4">Explore</a>
+                <div class="absolute top-full left-1/2 -translate-x-1/2 w-[220px] bg-white rounded-2xl shadow-2xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 mt-2 z-50 text-gray-900">
+                  <div class="flex flex-col gap-1">
+                    <a href="about.html" class="px-4 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition">Our Story</a>
+                    <a href="blog.html" class="px-4 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition">Our Journal</a>
+                    <a href="faqs.html" class="px-4 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition">FAQ's</a>
+                    <a href="contact.html" class="px-4 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition">Contact Us</a>
+                  </div>
+                </div>
+              </div>
+              <a href="#" class="nav-link">Compare</a>
+              <a href="contact.html" class="nav-link">Contact</a>
+              <a href="#" class="nav-link">Theme features</a>
+            </nav>
             <div class="flex items-center gap-6"><button class="hover:opacity-70"><i class="fas fa-search text-lg"></i></button><button class="hover:opacity-70"><i class="far fa-user text-lg"></i></button><button class="hover:opacity-70 relative"><i class="fas fa-shopping-cart text-lg"></i></button></div>
         </div>
     </header>
