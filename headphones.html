@@ -77,30 +77,6 @@
       scrollbar-width: none;
     }
 
-    /* Custom cursor */
-    .mouse-cursor {
-      width: 40px;
-      height: 40px;
-      background-color: rgba(0,0,0,0.5);
-      color: white;
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-
-    @media (pointer: fine) {
-      .mouse-cursor { display: flex; }
-      body { cursor: none; }
-      a, button { cursor: none; }
-
-      /* Only show custom cursor when actually moving to avoid getting stuck */
-      .mouse-cursor.active { display: flex; }
-      .mouse-cursor:not(.active) { display: none; }
-    }
 
     .hero-slider-dot {
       width: 6px;
@@ -154,11 +130,6 @@
 <body class="antialiased">
 
   <!-- Loading Bar & Cursor Placeholder -->
-  <div class="mouse-cursor" style="top: 50%; left: 50%; transform: translate(-50%, -50%); display: none;">
-    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-    </svg>
-  </div>
 
   <!-- Announcement Bar -->
   <div class="bg-[#1C1C1C] text-white text-xs py-2 px-4 flex justify-between items-center w-full z-50 relative">
@@ -726,32 +697,5 @@
   </footer>
 
   <script>
-    // Custom cursor logic
-    const cursor = document.querySelector('.mouse-cursor');
-    if (cursor) {
-        document.addEventListener('mousemove', (e) => {
-            cursor.classList.add('active');
-            cursor.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`;
-        });
-
-        document.addEventListener('mouseout', () => {
-             cursor.classList.remove('active');
-        });
-
-        const hoverElements = document.querySelectorAll('a, button');
-        hoverElements.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.style.transform += ' scale(1.5)');
-            el.addEventListener('mouseleave', () => cursor.style.transform = cursor.style.transform.replace(' scale(1.5)', ''));
-        });
-    }
-
-    // Filter pill toggle
-    document.querySelectorAll('.filter-pill').forEach(pill => {
-      pill.addEventListener('click', () => {
-        document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-      });
-    });
-  </script>
 </body>
 </html>
