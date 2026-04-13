@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept Theme - Shopify Theme Store Clone</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#008060', // Shopify green
+                        secondary: '#212B36',
+                        accent: '#C43256',
+                        background: '#131111',
+                        textPrimary: '#131111',
+                        link: '#C43256',
+                        darkBg: '#1e1e1e',     // For the top section
+                        graySoft: '#f6f6f7',   // Background for slider section
+                        textSoft: '#6b7177',
+                        borderLight: '#e1e3e5'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Inter', 'sans-serif'] // Using Inter as fallback for ShopifySans to ensure consistency
+                    },
+                    fontSize: {
+                        'h1': '23.008px',
+                        'h2': '29.008px',
+                        'body': '12px'
+                    },
+                    spacing: {
+                        'base-unit': '4px',
+                    },
+                    borderRadius: {
+                        'theme': '4px',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #131111;
+            background-color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom Scrollbar for sliders */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Responsive image constrainer */
+        .aspect-browser {
+            aspect-ratio: 16 / 9;
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- TOP NAVIGATION (Dark) -->
+    <header class="bg-background text-white h-16 flex items-center justify-between px-6 sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <i class="ph ph-bag-simple text-2xl text-white"></i>
+            <span class="font-semibold tracking-wide text-sm">Shopify Theme Store</span>
+        </div>
+        <div class="flex items-center gap-6 text-sm font-medium">
+            <a href="#" class="hover:text-gray-300">Browse themes</a>
+            <i class="ph ph-magnifying-glass text-lg cursor-pointer"></i>
+            <a href="#" class="hover:text-gray-300">Log in</a>
+            <button class="bg-white text-black px-4 py-1.5 rounded-full font-semibold hover:bg-gray-100 transition">Sign up</button>
+        </div>
+    </header>
+
+    <!-- DEMO HERO SECTION (Dark) -->
+    <section class="bg-background pt-8 pb-12 px-4 md:px-12 flex flex-col items-center border-b border-gray-800">
+
+        <!-- Viewport Toggles -->
+        <div class="flex gap-4 mb-6">
+            <div class="p-2 border rounded-md border-gray-500 bg-white/10 text-white cursor-pointer">
+                <i class="ph ph-desktop text-xl"></i>
+            </div>
+            <div class="p-2 text-gray-400 hover:text-white cursor-pointer">
+                <i class="ph ph-device-mobile text-xl"></i>
+            </div>
+        </div>
+
+        <!-- Browser Mockup -->
+        <div class="w-full max-w-7xl relative mx-auto bg-[#1a1a1a] rounded-t-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+            <!-- Mockup Header -->
+            <div class="bg-[#242424] h-14 flex items-center px-4 justify-between border-b border-[#303030]">
+                <!-- Fake icons left -->
+                <div class="flex gap-4 items-center pl-2 text-white">
+                    <i class="ph ph-facebook-logo"></i>
+                    <i class="ph ph-twitter-logo"></i>
+                    <i class="ph ph-instagram-logo"></i>
+                    <i class="ph ph-youtube-logo"></i>
+                </div>
+
+                <!-- Fake URL bar block -->
+                <div class="flex items-center text-[10px] text-gray-400 gap-2 font-medium tracking-wide">
+                    <i class="ph ph-arrow-left"></i>
+                    <span class="px-4"><i class="ph ph-tag"></i> Save up to 60% with code BLACKFRIDAY</span>
+                    <i class="ph ph-arrow-right"></i>
+                </div>
+
+                <!-- Fake icons right -->
+                <div class="flex gap-4 items-center text-xs text-gray-300 font-medium tracking-wide">
+                    <div class="flex items-center gap-1"><i class="ph ph-globe"></i> English <i class="ph ph-caret-down text-[10px]"></i></div>
+                    <div class="flex items-center gap-1">United States (USD $) <i class="ph ph-caret-down text-[10px]"></i></div>
+                </div>
+            </div>
+
+            <!-- Demo Image with Slideshow Arrows -->
+            <div class="w-full relative aspect-[1536/900] bg-zinc-900 border-l border-r border-b border-[#242424] overflow-hidden group">
+                <img src="https://cdn.shopify.com/theme-store/ndujm2c13f42m8mqesuj4ej5t9ww.jpg?width=1536" alt="Theme screenshot that previews Concept" class="w-full object-cover origin-top hover:scale-[1.01] transition-transform duration-1000">
+                <!-- Slideshow nav arrows -->
+                <button class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="ph ph-caret-left text-lg text-black"></i>
+                </button>
+                <button class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="ph ph-caret-right text-lg text-black"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- STICKY BOTTOM BAR (Floating Pill) -->
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-full max-w-[800px] z-50">
+        <div class="bg-white rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 px-6 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <h2 class="text-xl font-bold tracking-tight text-textPrimary">Concept</h2>
+                <div class="flex items-center gap-1 text-sm text-gray-500 font-medium">
+                    <span>$400 USD</span>
+                    <span>&bull;</span>
+                    <i class="ph-fill ph-thumbs-up text-green-600"></i>
+                    <span>99%</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button class="bg-white border border-gray-300 text-black px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-gray-50 transition">View demo</button>
+                <button class="bg-black text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-gray-800 transition">Try theme</button>
+            </div>
+        </div>
+    </div>
+
+
+    <main class="w-full bg-white relative z-10 pb-20">
+
+        <!-- BREADCRUMB -->
+        <div class="max-w-7xl mx-auto px-6 pt-6">
+            <nav class="text-[13px] text-gray-500 font-medium flex items-center gap-1.5">
+                <a href="#" class="hover:text-black underline underline-offset-2">Themes</a>
+                <i class="ph ph-caret-right text-[10px]"></i>
+                <span class="text-textPrimary">Concept</span>
+            </nav>
+        </div>
+
+        <!-- HEADER SECTION -->
+        <div class="max-w-7xl mx-auto px-6 pt-8 pb-12 flex flex-col md:flex-row justify-between items-start">
+            <div class="max-w-2xl">
+                <h1 class="text-4xl md:text-5xl font-bold text-textPrimary mb-3 tracking-tight">Concept</h1>
+                <p class="text-[17px] text-gray-700 font-medium">The seamless mobile shopping experience for your customers.</p>
+            </div>
+            <div class="mt-6 md:mt-0 text-right">
+                <div class="text-3xl font-bold tracking-tight text-textPrimary inline-flex items-baseline gap-1">
+                    $400 <span class="text-sm font-semibold text-gray-500 uppercase">USD</span>
+                </div>
+                <div class="text-sm text-gray-600 mt-1">
+                    by <a href="#" class="underline hover:text-black">RoarTheme</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3 HIGHLIGHT CARDS -->
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 pb-20">
+            <!-- Card 1 -->
+            <div class="flex flex-col gap-4">
+                <div class="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-gray-100 border border-borderLight shadow-sm group">
+                    <img src="https://img.youtube.com/vi/yRYmp9Ok0bU/hqdefault.jpg" alt="Mobile shopping made easy" class="w-full h-full object-cover">
+                    <!-- Fake play button overlay -->
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/20 transition">
+                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg">
+                            <i class="ph-fill ph-play text-xl text-black"></i>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-[15px] mb-1.5 tracking-tight text-textPrimary">Mobile shopping made easy</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed font-medium">Carousel swipes and popup closing feature create a seamless mobile shopping experience like a native app for your customers.</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="flex flex-col gap-4">
+                <div class="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-gray-100 shadow-sm border border-borderLight group">
+                    <img src="https://cdn.shopify.com/theme-store/s4d2cyq34gwsmq3exeb6koyp7ukf.jpg" alt="Create your ideal store" class="w-full h-full object-cover">
+                    <div class="absolute bottom-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
+                        <i class="ph ph-magnifying-glass-plus text-black"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-[15px] mb-1.5 tracking-tight text-textPrimary">Create your ideal store</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed font-medium">With highly customizable built-in sections, our theme gives you the power to create a store that perfectly meets your needs.</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="flex flex-col gap-4">
+                <div class="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-gray-100 shadow-sm border border-borderLight group">
+                    <img src="https://cdn.shopify.com/theme-store/qvtr8vy4nue1rq56hjulnicwe24f.jpg" alt="Let's make waves" class="w-full h-full object-cover">
+                    <div class="absolute bottom-3 right-3 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm">
+                        <i class="ph ph-magnifying-glass-plus text-black"></i>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-[15px] mb-1.5 tracking-tight text-textPrimary">Let's make waves</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed font-medium">New era, new look. Elevate your online presence with our revolutionary theme. Experience design & function like never before.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- WHAT'S INCLUDED PILL -->
+        <div class="relative max-w-7xl mx-auto px-6 py-6 border-t border-gray-100">
+            <div class="absolute left-1/2 -top-5 -translate-x-1/2 z-10">
+                <span class="bg-gray-100 hover:bg-gray-200 cursor-pointer text-black text-[11px] font-bold tracking-widest px-6 py-2.5 rounded-full uppercase transition shadow-sm border border-borderLight">WHAT'S INCLUDED</span>
+            </div>
+        </div>
+
+        <!-- FEATURES MATRIC LIST -->
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <h2 class="text-xl font-bold mb-8 tracking-tight">Features</h2>
+            <div class="grid grid-cols-2 lg:grid-cols-5 gap-y-10 gap-x-6 text-[13px]">
+
+                <!-- Col 1 -->
+                <div>
+                    <h4 class="font-bold text-textPrimary mb-4">Cart and checkout</h4>
+                    <ul class="space-y-3 font-medium text-gray-600">
+                        <li>Cart notes</li>
+                        <li>Gift wrapping</li>
+                        <li>In-store pickups</li>
+                        <li>Pre-order</li>
+                        <li>Quick buy</li>
+                        <li>Sign in with Shop</li>
+                        <li>Slide-out cart</li>
+                        <li>Sticky cart</li>
+                    </ul>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h4 class="font-bold text-textPrimary mb-4">Customer accounts and sign-in</h4>
+                    <ul class="space-y-3 font-medium text-gray-600">
+                        <li>Account menu</li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h4 class="font-bold text-textPrimary mb-4">Marketing and conversion</h4>
+                    <ul class="space-y-3 font-medium text-gray-600">
+                        <li>Trust badges</li>
+                        <li>Stock counter</li>
+                        <li>Right-to-left</li>
+                        <li>Recommended products</li>
+                        <li>Recently viewed</li>
+                        <li>Quick view</li>
+                        <li>Quick order list</li>
+                        <li>Promo tiles</li>
+                        <li>Promo popups</li>
+                        <li>Promo banners</li>
+                        <li>Product badges</li>
+                        <li>Press coverage</li>
+                        <li>In-menu promos</li>
+                        <li>FAQ page</li>
+                        <li>EU translations (EN, FR, IT, DE, ES)</li>
+                        <li>Customizable contact form</li>
+                        <li>Cross-selling</li>
+                        <li>Countdown timer</li>
+                        <li>Blogs</li>
+                        <li>Back-in-stock alert</li>
+                        <li>Age verifier</li>
+                        <li class="flex flex-col items-start gap-1">
+                            <span>Quantity pricing</span>
+                            <span class="bg-gray-100 text-[9px] uppercase font-bold text-gray-500 rounded px-1.5 py-0.5 tracking-wider border border-borderLight">Shopify Plus</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div>
+                    <h4 class="font-bold text-textPrimary mb-4">Merchandising</h4>
+                    <ul class="space-y-3 font-medium text-gray-600">
+                        <li>Usage information</li>
+                        <li>Slideshow</li>
+                        <li>Size chart</li>
+                        <li>Shipping/delivery information</li>
+                        <li>Product videos</li>
+                        <li>Product tabs</li>
+                        <li>Product options</li>
+                        <li>Lookbooks</li>
+                        <li>Ingredients or nutritional information</li>
+                        <li>Image zoom</li>
+                        <li>Image rollover</li>
+                        <li>Image hotspot</li>
+                        <li>Image galleries</li>
+                        <li>High-resolution images</li>
+                        <li>Color swatches</li>
+                        <li>Before/after image slider</li>
+                        <li>Animation</li>
+                        <li class="flex flex-col items-start gap-1">
+                            <span>Combined listing</span>
+                            <span class="bg-gray-100 text-[9px] uppercase font-bold text-gray-500 rounded px-1.5 py-0.5 tracking-wider border border-borderLight">Shopify Plus</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 5 -->
+                <div>
+                    <h4 class="font-bold text-textPrimary mb-4">Product discovery</h4>
+                    <ul class="space-y-3 font-medium text-gray-600">
+                        <li>Back-to-top button</li>
+                        <li>Breadcrumbs</li>
+                        <li>Collection page navigation</li>
+                        <li>Enhanced search</li>
+                        <li>Infinite scroll</li>
+                        <li>Mega menu</li>
+                        <li>Product filtering and sorting</li>
+                        <li>Recently viewed</li>
+                        <li>Recommended products</li>
+                        <li>Sticky header</li>
+                        <li>Swatch filters</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PRESETS SECTION -->
+        <div class="max-w-7xl mx-auto px-6 py-24 mb-10 overflow-hidden">
+            <div class="grid lg:grid-cols-2 items-center gap-16">
+                <!-- Left Details -->
+                <div class="max-w-md">
+                    <i class="ph ph-swatches text-3xl mb-4 text-black"></i>
+                    <h2 class="text-2xl font-bold mb-2 tracking-tight">Presets</h2>
+                    <p class="text-gray-600 font-medium">Concept comes with 2 ready-made designs for your store</p>
+                </div>
+
+                <!-- Right Overlapping Images -->
+                <div class="relative w-full h-[400px]">
+                    <!-- Back Image (#8) -->
+                    <img src="https://cdn.shopify.com/theme-store/ndujm2c13f42m8mqesuj4ej5t9ww.jpg" alt="Theme screenshot that previews Concept" class="absolute left-[-20px] top-1/2 -translate-y-1/2 w-[70%] rounded-xl shadow-xl border border-gray-200 z-10 hidden sm:block">
+                    <!-- Front Image (#9) -->
+                    <img src="https://cdn.shopify.com/theme-store/r7vdb8fxgz7b0jlg8c1952jg0xl3.jpg" alt="Theme screenshot that previews Inova" class="absolute right-0 sm:right-[10%] top-1/2 -translate-y-1/2 w-full sm:w-[60%] rounded-xl shadow-2xl border-[6px] border-white z-20">
+
+                    <!-- Checkmark center decorative -->
+                    <div class="absolute left-[45%] top-1/2 -translate-y-1/2 bg-black text-white rounded-full p-2 w-8 h-8 flex items-center justify-center shadow-lg z-30 hidden sm:flex border-2 border-white">
+                         <i class="ph ph-check font-bold"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- STORES SLIDER SECTION (Gray BG) -->
+    <section class="bg-[#f6f6f7] py-20 border-t border-b border-borderLight overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 mb-8 flex justify-between items-end">
+            <h2 class="text-xl font-bold tracking-tight text-textPrimary">Stores using this theme</h2>
+            <div class="flex gap-2">
+                <button class="w-8 h-8 rounded-full border hover:border-black flex items-center justify-center bg-white shadow-sm transition"><i class="ph ph-caret-left"></i></button>
+                <button class="w-8 h-8 rounded-full border hover:border-black flex items-center justify-center bg-white shadow-sm transition"><i class="ph ph-caret-right"></i></button>
+            </div>
+        </div>
+
+        <div class="max-w-[1400px] pl-6 md:pl-auto mx-auto relative cursor-grab">
+            <div class="flex overflow-x-auto hide-scrollbar gap-5 snap-x snap-mandatory">
+
+                <!-- Store 1 (#10) -->
+                <div class="flex-none snap-start group relative">
+                    <img src="https://cdn.shopify.com/theme-store/zprztdhxd1fsix6d1iyx35j20uha.jpg?width=600" alt="Storefront screenshot for Cortix" class="w-[380px] h-auto rounded-lg shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-gray-150 transition-shadow group-hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+                </div>
+
+                <!-- Store 2 (#11) -->
+                <div class="flex-none snap-start group relative">
+                    <img src="https://cdn.shopify.com/theme-store/5bur7jnc5e0e2qieuyf8ibod7rwa.jpg?width=600" alt="Storefront screenshot for Mad Voltage" class="w-[380px] h-auto rounded-lg shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-gray-150 transition-shadow group-hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+                </div>
+
+                <!-- Store 3 (#12) -->
+                <div class="flex-none snap-start group relative">
+                    <img src="https://cdn.shopify.com/theme-store/gs624bncdrg09qjpy6acda51os7c.jpg?width=600" alt="Storefront screenshot for Fable Outdoors" class="w-[380px] h-auto rounded-lg shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-gray-150 transition-shadow group-hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+                </div>
+
+                <!-- Store 4 (#13) -->
+                <div class="flex-none snap-start group relative">
+                    <img src="https://cdn.shopify.com/theme-store/1n4hx9nkunkqf7iuoppy0atyce42.jpg?width=600" alt="Storefront screenshot for AeroMag" class="w-[380px] h-auto rounded-lg shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-gray-150 transition-shadow group-hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+                </div>
+
+                <!-- Store 5 (#14) -->
+                <div class="flex-none snap-start group relative pr-6">
+                    <img src="https://cdn.shopify.com/theme-store/ecwybljzy3xcfxpwuy64o62m5ww8.jpg?width=600" alt="Storefront screenshot for Harmony" class="w-[380px] h-auto rounded-lg shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-gray-150 transition-shadow group-hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS SECTION -->
+    <section class="max-w-7xl mx-auto px-6 py-20 border-b border-borderLight grid lg:grid-cols-[1fr_2fr] gap-x-16 gap-y-12">
+        <!-- Sidebar -->
+        <div>
+            <h2 class="text-[20px] font-bold mb-4 tracking-tight">Reviews</h2>
+            <div class="text-[34px] font-bold text-textPrimary leading-none mb-2 tracking-tighter">99% positive</div>
+            <div class="text-[13px] text-gray-600 font-medium mb-6">585 reviews for all presets</div>
+
+            <div class="flex flex-col gap-3 mb-8">
+                <!-- Bar 1 -->
+                <div class="flex items-center gap-3">
+                    <i class="ph-fill ph-thumbs-up text-green-700 w-4"></i>
+                    <div class="flex-1 h-2 rounded bg-gray-200 overflow-hidden">
+                        <div class="h-full bg-black rounded" style="width: 98%"></div>
+                    </div>
+                    <span class="text-xs font-semibold w-6 text-right">579</span>
+                </div>
+                <!-- Bar 2 -->
+                <div class="flex items-center gap-3 opacity-50">
+                    <i class="ph ph-mask-happy w-4"></i>
+                    <div class="flex-1 h-2 rounded bg-gray-200 overflow-hidden">
+                        <div class="h-full bg-black rounded" style="width: 2%"></div>
+                    </div>
+                    <span class="text-xs w-6 text-right font-medium">1</span>
+                </div>
+                <!-- Bar 3 -->
+                <div class="flex items-center gap-3 text-red-600">
+                    <i class="ph-fill ph-thumbs-down w-4"></i>
+                    <div class="flex-1 h-2 rounded bg-gray-200 overflow-hidden">
+                        <div class="h-full bg-red-600 rounded" style="width: 3%"></div>
+                    </div>
+                    <span class="text-xs font-semibold w-6 text-right">5</span>
+                </div>
+            </div>
+
+            <button class="px-5 py-2 border border-gray-300 rounded-full text-[13px] font-semibold hover:border-black transition">All reviews</button>
+        </div>
+
+        <!-- Reviews List -->
+        <div class="flex flex-col gap-8">
+
+            <!-- Review 1 -->
+            <div class="border-b border-gray-100 pb-8">
+                <div class="flex justify-between items-start mb-2">
+                    <div class="flex items-center gap-2">
+                        <i class="ph-fill ph-thumbs-up text-green-700"></i>
+                        <span class="font-semibold text-sm">My Japanese World</span>
+                    </div>
+                    <span class="text-[12px] text-gray-500 font-medium">Apr 13, 2026</span>
+                </div>
+                <p class="text-[13px] text-gray-700 leading-relaxed font-medium">The theme is excellent—clean, well-designed, and easy to customize. It works smoothly and offers everything needed to build a professional-looking store. The support team is also very responsive and helpful. Overall, a great experience. Highly recommended.</p>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="border-b border-gray-100 pb-8">
+                <div class="flex justify-between items-start mb-2">
+                    <div class="flex items-center gap-2">
+                        <i class="ph-fill ph-thumbs-up text-green-700"></i>
+                        <span class="font-semibold text-sm">Viomiwater</span>
+                    </div>
+                    <span class="text-[12px] text-gray-500 font-medium">Apr 10, 2026</span>
+                </div>
+                <p class="text-[13px] text-gray-700 leading-relaxed font-medium">Scott N. is very good! quick reaction and great outcome!</p>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="border-b border-gray-100 pb-8">
+                <div class="flex justify-between items-start mb-2">
+                    <div class="flex items-center gap-2">
+                        <i class="ph-fill ph-thumbs-up text-green-700"></i>
+                        <span class="font-semibold text-sm">Comfy Shoes</span>
+                    </div>
+                    <span class="text-[12px] text-gray-500 font-medium">Apr 9, 2026</span>
+                </div>
+                <p class="text-[13px] text-gray-700 leading-relaxed font-medium">Scott is always very quick to response. using the theme for over a year and I am heppy with ttheir support.</p>
+            </div>
+
+            <!-- Review 4 -->
+            <div>
+                <div class="flex justify-between items-start mb-2">
+                    <div class="flex items-center gap-2">
+                        <i class="ph-fill ph-thumbs-up text-green-700"></i>
+                        <span class="font-semibold text-sm">GQSize</span>
+                    </div>
+                    <span class="text-[12px] text-gray-500 font-medium">Apr 8, 2026</span>
+                </div>
+                <p class="text-[13px] text-gray-700 leading-relaxed font-medium">This theme is amazing. Modern, looks good on mobile, yet still fast. What I really like is how they embedded small, animated interactions that make simple component looks very polished and fresh. Also, the support is amazing - very accommodating with our request and adjustment.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- DESIGNED BY SECTION -->
+    <section class="max-w-7xl mx-auto px-6 py-20 border-b border-borderLight grid lg:grid-cols-[1fr_2fr] gap-x-16 gap-y-12">
+        <div>
+            <h2 class="text-lg font-bold mb-1 tracking-tight">Designed by</h2>
+            <div class="text-[22px] font-bold text-textPrimary leading-none mb-6">RoarTheme</div>
+
+            <div class="flex gap-3 mt-8">
+                <button class="px-5 py-2 border border-gray-300 rounded-full text-[13px] font-semibold hover:border-black transition">Get support</button>
+                <button class="px-5 py-2 border border-gray-300 rounded-full text-[13px] font-semibold hover:border-black transition">All themes</button>
+            </div>
+        </div>
+
+        <div class="text-[13px] text-gray-600 font-medium space-y-6">
+            <div>
+                <span class="font-bold text-black border-r border-gray-300 pr-2 mr-2">Version 5.3.2</span>
+                <span class="text-gray-500">April 06, 2026</span>
+                <p class="mt-2 leading-relaxed max-w-3xl">This release focuses on layout stability, bug fixes across multiple sections, and improved accessibility and RTL language support.</p>
+                <div class="flex gap-4 mt-2">
+                    <a href="#" class="text-black font-semibold underline decoration-1 underline-offset-2 hover:decoration-2">View details</a>
+                    <a href="#" class="text-black font-semibold underline decoration-1 underline-offset-2 hover:decoration-2">All versions</a>
+                </div>
+            </div>
+
+            <div>
+                <a href="#" class="text-black font-semibold underline decoration-1 underline-offset-2 hover:decoration-2 inline-flex items-center gap-1">
+                    Theme documentation <i class="ph ph-arrow-up-right text-[10px]"></i>
+                </a>
+            </div>
+
+            <div class="text-gray-400 text-xs">
+                District 2, Ho Chi Minh, 700000, VN<br>
+                support@roartheme.co
+            </div>
+        </div>
+    </section>
+
+    <!-- MORE THEMES SLIDER -->
+    <section class="py-20 overflow-hidden max-w-[1400px] mx-auto px-6">
+        <div class="flex justify-between items-end mb-8">
+            <h2 class="text-xl font-bold tracking-tight text-textPrimary">More themes for electronics</h2>
+            <div class="flex items-center gap-4">
+                <a href="#" class="text-[13px] font-semibold underline decoration-1 underline-offset-2 hover:decoration-2">View all</a>
+                <div class="flex gap-2">
+                    <button class="w-8 h-8 rounded-full border hover:border-black flex items-center justify-center bg-white shadow-sm transition"><i class="ph ph-caret-left"></i></button>
+                    <button class="w-8 h-8 rounded-full border hover:border-black flex items-center justify-center bg-white shadow-sm transition"><i class="ph ph-caret-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative cursor-grab">
+            <div class="flex overflow-x-auto hide-scrollbar gap-6 snap-x snap-mandatory pb-4">
+
+                <!-- Theme Card 1 (#15) -->
+                <div class="flex-none w-[280px] snap-start group">
+                    <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm mb-4 relative aspect-[600/1067] bg-gray-50">
+                        <img src="https://cdn.shopify.com/theme-store/g5wabr5igrdkkqkdof5bo2lnysn2.jpg?width=600" alt="Prototype" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm tracking-tight">Prototype</h3>
+                        <div class="flex items-center gap-2 mt-1 text-[13px] font-medium text-gray-500">
+                            <span>$380</span>
+                            <span class="bg-gray-100 text-[9px] uppercase font-bold text-gray-600 rounded px-1.5 py-[1px] tracking-wider border border-borderLight border">New</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Theme Card 2 (#16) -->
+                <div class="flex-none w-[280px] snap-start group">
+                    <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm mb-4 relative aspect-[600/1067] bg-gray-50">
+                        <img src="https://cdn.shopify.com/theme-store/hhfjoxm1m2mn1pvnnzd5dfhjpbf0.jpg?width=600" alt="Quantum" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm tracking-tight">Quantum</h3>
+                        <div class="flex items-center gap-2 mt-1 text-[13px] font-medium text-gray-500">
+                            <span>$340</span>
+                            <span>&bull;</span>
+                            <i class="ph-fill ph-thumbs-up text-green-700 -mr-1"></i> 100%
+                            <span class="bg-gray-100 text-[9px] uppercase font-bold text-gray-600 rounded px-1.5 py-[1px] tracking-wider border border-borderLight border">New</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Theme Card 3 (#17) -->
+                <div class="flex-none w-[280px] snap-start group">
+                    <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm mb-4 relative aspect-[600/1067] bg-gray-50">
+                        <img src="https://cdn.shopify.com/theme-store/c7i0p1yfqr2l4zr7rlxspj1q5jtq.jpg?width=600" alt="Petit" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm tracking-tight">Petit</h3>
+                        <div class="flex items-center gap-2 mt-1 text-[13px] font-medium text-gray-500">
+                            <span>$390</span>
+                            <span>&bull;</span>
+                            <i class="ph-fill ph-thumbs-up text-green-700 -mr-1"></i> 98%
+                            <span class="bg-gray-100 text-[9px] uppercase font-bold text-gray-600 rounded px-1.5 py-[1px] tracking-wider border border-borderLight border">New</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Theme Card 4 (#18) -->
+                <div class="flex-none w-[280px] snap-start group">
+                    <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm mb-4 relative aspect-[600/1067] bg-gray-50">
+                        <img src="https://cdn.shopify.com/theme-store/4zsh3jmncvgkvrji9rq2l57jiph6.jpg?width=600" alt="Nexvo" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm tracking-tight">Nexvo</h3>
+                        <div class="flex items-center gap-2 mt-1 text-[13px] font-medium text-gray-500">
+                            <span>$400</span>
+                            <span>&bull;</span>
+                            <i class="ph-fill ph-thumbs-up text-green-700 -mr-1"></i> 99%
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Theme Card 5 (#19) -->
+                <div class="flex-none w-[280px] snap-start group">
+                    <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm mb-4 relative aspect-[600/1067] bg-gray-50">
+                        <img src="https://cdn.shopify.com/theme-store/ylxdpdi70o90q5bafkp4fxr1huw7.jpg?width=600" alt="Ignite" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm tracking-tight">Ignite</h3>
+                        <div class="flex items-center gap-2 mt-1 text-[13px] font-medium text-gray-500">
+                            <span>$340</span>
+                            <span>&bull;</span>
+                            <i class="ph-fill ph-thumbs-up text-green-700 -mr-1"></i> 89%
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER SECTION (Black Shopify Standard) -->
+    <footer class="bg-[#000000] text-white pt-24 pb-12 w-full mt-10">
+
+        <!-- Top Half -->
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 mb-24">
+
+            <div>
+                <span class="text-[11px] font-bold tracking-[0.2em] text-gray-400 block mb-6 uppercase">Crafted for Commerce</span>
+                <h2 class="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight">The world's best online stores use Shopify themes</h2>
+            </div>
+
+            <div class="grid gap-8">
+                <div>
+                    <h3 class="font-bold mb-2 text-[15px]">Future proof</h3>
+                    <p class="text-gray-400 text-sm font-medium">Regularly updated and always works with the newest Shopify features.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2 text-[15px]">Play before you pay</h3>
+                    <p class="text-gray-400 text-sm font-medium">Customize until you love it. Only pay when you publish.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2 text-[15px]">Blazing fast checkout</h3>
+                    <p class="text-gray-400 text-sm font-medium">Speed-tested so your customers check out in record time.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2 text-[15px]">Keep it forever</h3>
+                    <p class="text-gray-400 text-sm font-medium">One-time payment, lifetime license for your store. No expiration.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle CTA section -->
+        <div class="max-w-7xl mx-auto px-6 text-center border-b border-gray-800 pb-24 mb-16">
+            <h2 class="text-3xl font-bold mb-6 tracking-tight">Build fast and sell more<br>with Shopify themes</h2>
+            <button class="bg-[#008060] hover:bg-[#006e52] text-white px-8 py-3.5 rounded-full font-bold text-sm tracking-wide transition shadow-lg">Start your free trial</button>
+        </div>
+
+        <!-- Links Grid -->
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-5 gap-y-12 gap-x-8 mb-16 text-sm">
+            <div class="md:col-span-1">
+                <i class="ph-fill ph-bag-simple text-3xl"></i>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-4">Top industries</h4>
+                <ul class="space-y-3 text-gray-400 font-medium">
+                    <li><a href="#" class="hover:text-white">Clothing</a></li>
+                    <li><a href="#" class="hover:text-white">Beauty</a></li>
+                    <li><a href="#" class="hover:text-white">Jewelry and accessories</a></li>
+                    <li><a href="#" class="hover:text-white">Home</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-4">Categories</h4>
+                <ul class="space-y-3 text-gray-400 font-medium">
+                    <li><a href="#" class="hover:text-white">All themes</a></li>
+                    <li><a href="#" class="hover:text-white">Free themes</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-4">Support</h4>
+                <ul class="space-y-3 text-gray-400 font-medium">
+                    <li><a href="#" class="hover:text-white">Shopify Help Center</a></li>
+                    <li><a href="#" class="hover:text-white">API Documentation</a></li>
+                    <li><a href="#" class="hover:text-white">Shopify Community</a></li>
+                    <li><a href="#" class="hover:text-white">Blogs</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-4">Shopify</h4>
+                <ul class="space-y-3 text-gray-400 font-medium">
+                    <li><a href="#" class="hover:text-white">About</a></li>
+                    <li><a href="#" class="hover:text-white">Partners</a></li>
+                    <li><a href="#" class="hover:text-white">Legal</a></li>
+                    <li><a href="#" class="hover:text-white">Service status</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Footer (Terms) -->
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-[13px] font-medium text-gray-400 gap-4">
+            <div class="flex gap-4">
+                <a href="#" class="hover:text-white">Terms of Service</a>
+                <a href="#" class="hover:text-white">Privacy Policy</a>
+                <a href="#" class="hover:text-white flex items-center gap-2">Your Privacy Choices <i class="ph-fill ph-toggle-left text-blue-500"></i></a>
+                <a href="#" class="hover:text-white">Sitemap</a>
+            </div>
+
+            <button class="flex items-center gap-2 hover:text-white transition">
+                <i class="ph ph-globe text-lg"></i>
+                <span class="font-semibold">English</span>
+                <i class="ph ph-caret-down text-[10px]"></i>
+            </button>
+        </div>
+
+    </footer>
+
+</body>
+</html>

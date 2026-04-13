@@ -1,0 +1,8 @@
+node_modules/
+.aidesigner/runs/
+.aidesigner/reference-screenshot.png
+.aidesigner/demo-page-screenshot.png
+.aidesigner/actual-demo-screenshot.png
+.aidesigner/clone-screenshot.png
+.aidesigner/clone2-screenshot.png
+.claude/
