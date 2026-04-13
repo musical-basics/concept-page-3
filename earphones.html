@@ -1,611 +1,723 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Earphones - Concept Theme Tech</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earphones Collection | Clone Web Store</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Icons -->
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Configuration -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-          },
-          colors: {
-            primary: '#3B5998',
-            secondary: '#E60023',
-            accent: '#00ACEE',
-            background: '#FFFFFF',
-            textPrimary: '#1F1F1F',
-            link: '#00ACEE',
-            dark: '#1A1A1A',
-            gray: {
-              50: '#F9FAFB',
-              100: '#F3F4F6',
-              200: '#E5E7EB',
-              300: '#D1D5DB',
-              400: '#9CA3AF',
-              500: '#6B7280',
-              600: '#4B5563',
-              700: '#374151',
-              800: '#1F2937',
-              900: '#111827',
+    <!-- Configuration for custom values in Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        gray900: '#1a1a1a',
+                        textPrimary: '#1F1F1F',
+                    }
+                }
             }
-          },
-          animation: {
-            'spin': 'spin 1s linear infinite',
-            'marquee': 'marquee 25s linear infinite',
-          },
-          keyframes: {
-            marquee: {
-              '0%': { transform: 'translateX(0%)' },
-              '100%': { transform: 'translateX(-100%)' },
-            }
-          }
         }
-      }
-    }
-  </script>
+    </script>
 
-  <!-- Custom Styles -->
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      color: #1F1F1F;
-      background-color: #FFFFFF;
-      overflow-x: hidden;
-    }
+    <!-- Custom Styles for Scrollbars and specifics -->
+    <style>
+        body {
+            background-color: #f7f7f7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-    .hide-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .hide-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+        /* Hide scrollbar for inline swatches/carousels if needed */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
 
+        /* Swatch Selection styling */
+        .swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 0 1px #e5e5e5;
+            position: relative;
+            cursor: pointer;
+        }
+        .swatch.active {
+            box-shadow: 0 0 0 1px #fff, 0 0 0 2px #000;
+        }
+        .swatch-multi {
+            background: linear-gradient(135deg, #ddd 50%, #555 50%);
+        }
 
-    .floating-socials {
-      position: fixed;
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 40;
-      background: white;
-      border-radius: 30px;
-      padding: 16px 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      align-items: center;
-    }
-
-    .filter-pill {
-      transition: all 0.2s ease;
-    }
-    .filter-pill:hover {
-      border-color: #1A1A1A;
-    }
-    .filter-pill.active {
-      background-color: #1A1A1A;
-      color: #fff;
-      border-color: #1A1A1A;
-    }
-  </style>
+        /* Custom Wave Logo CSS drawing */
+        .logo-wave {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .logo-bar { background: currentColor; border-radius: 9999px; }
+        
+        .hero-clip {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        
+        .product-card-hover:hover .product-img {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
-<body class="antialiased">
+<body class="text-textPrimary overflow-x-hidden">
 
-  <!-- Cursor -->
+    <!-- Announcement Bar -->
+    <div class="bg-[#111111] text-white/90 text-[11px] font-medium tracking-wide py-2.5 px-6 flex flex-col md:flex-row justify-between items-center z-50 relative border-b border-white/10">
+        <!-- Left: Socials -->
+        <div class="flex items-center gap-4 hidden md:flex">
+            <i class="ph ph-facebook-logo text-base hover:text-white cursor-pointer transition"></i>
+            <i class="ph ph-x-logo text-base hover:text-white cursor-pointer transition"></i>
+            <i class="ph ph-instagram-logo text-base hover:text-white cursor-pointer transition"></i>
+            <i class="ph ph-youtube-logo text-base hover:text-white cursor-pointer transition"></i>
+        </div>
+        
+        <!-- Center: Banner Text -->
+        <div class="flex items-center gap-8">
+            <i class="ph ph-arrow-left text-sm cursor-pointer opacity-70 hover:opacity-100"></i>
+            <div class="flex items-center gap-2">
+                <i class="ph ph-tag opacity-70"></i>
+                <span class="opacity-90">Save up to 60% with code BLACKFRIDAY</span>
+            </div>
+            <i class="ph ph-arrow-right text-sm cursor-pointer opacity-70 hover:opacity-100"></i>
+        </div>
 
-  <!-- Announcement Bar -->
-  <div class="bg-[#1C1C1C] text-white text-xs py-2 px-4 flex justify-between items-center w-full z-50 relative">
-    <div class="flex items-center gap-4 hidden md:flex">
-      <a href="#" class="hover:text-gray-300"><i class="ph ph-facebook-logo text-lg"></i></a>
-      <a href="#" class="hover:text-gray-300"><i class="ph ph-twitter-logo text-lg"></i></a>
-      <a href="#" class="hover:text-gray-300"><i class="ph ph-instagram-logo text-lg"></i></a>
-      <a href="#" class="hover:text-gray-300"><i class="ph ph-youtube-logo text-lg"></i></a>
+        <!-- Right: Localization -->
+        <div class="flex items-center gap-6 hidden md:flex">
+            <div class="flex items-center gap-2 cursor-pointer hover:text-white transition">
+                <i class="ph ph-globe text-sm opacity-70"></i>
+                <span>English</span>
+                <i class="ph ph-caret-down text-[10px] opacity-70"></i>
+            </div>
+            <div class="flex items-center gap-2 cursor-pointer hover:text-white transition">
+                <i class="ph ph-currency-dollar text-sm opacity-70"></i>
+                <span>United States (USD $)</span>
+                <i class="ph ph-caret-down text-[10px] opacity-70"></i>
+            </div>
+        </div>
     </div>
-    <div class="flex-1 flex justify-center items-center gap-4 text-gray-300">
-      <button><i class="ph ph-arrow-left"></i></button>
-      <span class="flex items-center gap-2">
-        <i class="ph ph-truck"></i> Save up to 60% with code BLACKFRIDAY
-      </span>
-      <button><i class="ph ph-arrow-right"></i></button>
-    </div>
-    <div class="flex items-center gap-6 hidden md:flex text-gray-300">
-      <button class="flex items-center gap-1 hover:text-white">
-        <i class="ph ph-globe"></i> English <i class="ph ph-caret-down"></i>
-      </button>
-      <button class="flex items-center gap-1 hover:text-white">
-        <i class="ph ph-currency-dollar"></i> United States (USD $) <i class="ph ph-caret-down"></i>
-      </button>
-    </div>
-  </div>
 
-  <!-- Header -->
-  <header class="sticky top-0 bg-white z-40 w-full px-6 py-4 flex items-center justify-between border-b border-gray-100 transition-all duration-300">
-    <!-- Logo -->
-    <a href="index.html" class="flex items-center">
-      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14.5 10V30M20.5 5V35M26.5 15V25M8.5 17V23M32.5 17V23" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </a>
+    <!-- Transparent Header -->
+    <header class="absolute top-[44px] left-0 w-full z-40 text-white px-8 py-6 flex justify-between items-center pointer-events-none">
+        
+        <!-- Logo -->
+        <a href="#" class="logo-wave text-white pointer-events-auto group">
+            <!-- Simulated Audio Wave form based on visual -->
+            <div class="logo-bar w-1.5 h-3 opacity-60 group-hover:h-4 group-hover:opacity-100 transition-all duration-300"></div>
+            <div class="logo-bar w-1.5 h-6 opacity-80 group-hover:h-8 group-hover:opacity-100 transition-all duration-300"></div>
+            <div class="logo-bar w-2 h-8 group-hover:h-10 transition-all duration-300"></div>
+            <div class="logo-bar w-2 h-10 group-hover:scale-110 transition-all duration-300"></div>
+            <div class="logo-bar w-2 h-8 group-hover:h-10 transition-all duration-300"></div>
+            <div class="logo-bar w-1.5 h-6 opacity-80 group-hover:h-8 group-hover:opacity-100 transition-all duration-300"></div>
+            <div class="logo-bar w-1.5 h-3 opacity-60 group-hover:h-4 group-hover:opacity-100 transition-all duration-300"></div>
+        </a>
 
-    <!-- Navigation -->
-    <nav class="hidden lg:flex items-center gap-8">
-      <a href="headphones.html" class="text-sm font-medium hover:text-gray-600 transition-colors">Headphones</a>
-      <a href="earphones.html" class="text-sm font-medium hover:text-gray-600 transition-colors text-black border-b-2 border-black pb-0.5">Earphones</a>
-      <a href="speakers.html" class="text-sm font-medium hover:text-gray-600 transition-colors">Speakers</a>
-      <a href="accessories.html" class="text-sm font-medium hover:text-gray-600 transition-colors">Accessories</a>
-      <a href="about.html" class="text-sm font-medium hover:text-gray-600 transition-colors">Our Story</a>
-      <a href="blog.html" class="text-sm font-medium hover:text-gray-600 transition-colors">Journal</a>
-      <a href="contact.html" class="text-sm font-medium hover:text-gray-600 transition-colors">Contact</a>
-    </nav>
-
-    <!-- Icons -->
-    <div class="flex items-center gap-5">
-      <button class="text-gray-800 hover:text-black"><i class="ph ph-magnifying-glass text-xl"></i></button>
-      <button class="text-gray-800 hover:text-black"><i class="ph ph-user text-xl"></i></button>
-      <button class="text-gray-800 hover:text-black relative">
-        <i class="ph ph-shopping-cart text-xl"></i>
-      </button>
-      <button class="lg:hidden text-gray-800"><i class="ph ph-list text-2xl"></i></button>
-    </div>
-  </header>
-
-  <!-- Floating Social (Left Side) -->
-  <div class="hidden lg:flex floating-socials bg-white border border-gray-100 shadow-sm py-4 px-2 rounded-full flex-col gap-4 text-gray-500">
-    <a href="#" class="hover:text-black transition-colors"><i class="ph ph-facebook-logo text-lg"></i></a>
-    <a href="#" class="hover:text-black transition-colors"><i class="ph ph-twitter-logo text-lg"></i></a>
-    <a href="#" class="hover:text-black transition-colors"><i class="ph ph-instagram-logo text-lg"></i></a>
-    <a href="#" class="hover:text-black transition-colors"><i class="ph ph-youtube-logo text-lg"></i></a>
-    <div class="h-px w-6 bg-gray-200 my-2"></div>
-    <div class="text-[10px] font-bold tracking-widest uppercase rotate-180" style="writing-mode: vertical-rl;">
-      Get 20% Off
-    </div>
-  </div>
-
-  <main>
-
-    <!-- Hero Banner -->
-    <section class="relative w-full h-[45vh] lg:h-[55vh] overflow-hidden bg-gray-900">
-      <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/collection-03.webp?v=1708443712&width=1200" alt="Earphones Collection" class="absolute inset-0 w-full h-full object-cover opacity-40 scale-110">
-      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20"></div>
-      <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-        <!-- Breadcrumb -->
-        <nav class="flex items-center gap-2 text-sm text-gray-300 mb-6">
-          <a href="index.html" class="hover:text-white transition-colors">Home</a>
-          <i class="ph ph-caret-right text-xs"></i>
-          <span class="text-gray-400">Collections</span>
-          <i class="ph ph-caret-right text-xs"></i>
-          <span class="text-white font-medium">Earphones</span>
+        <!-- Main Nav (Desktop) -->
+        <nav class="hidden lg:flex items-center gap-8 text-[13px] font-semibold pointer-events-auto tracking-wide">
+            <a href="#" class="hover:opacity-70 transition">Shop</a>
+            <a href="#" class="hover:opacity-70 transition">Collections</a>
+            <a href="#" class="hover:opacity-70 transition">Explore</a>
+            <a href="#" class="hover:opacity-70 transition">Compare</a>
+            <a href="#" class="hover:opacity-70 transition">Contact</a>
+            <a href="#" class="hover:opacity-70 transition">Theme features</a>
         </nav>
-        <h1 class="text-white text-5xl md:text-6xl lg:text-[80px] font-bold tracking-tight leading-[1.1]">Earphones</h1>
-        <p class="text-gray-300 text-lg mt-4 max-w-xl">Small design, incredible sound. Discover our curated collection of premium earphones.</p>
-      </div>
+
+        <!-- Right Utilities -->
+        <div class="flex items-center gap-5 pointer-events-auto">
+            <button class="hover:opacity-70 transition"><i class="ph ph-magnifying-glass text-xl"></i></button>
+            <button class="hover:opacity-70 transition"><i class="ph ph-user text-xl"></i></button>
+            <button class="hover:opacity-70 transition"><i class="ph ph-shopping-cart-simple text-xl"></i></button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative w-full h-[650px] lg:h-[750px] overflow-hidden bg-[#1c1c1c]">
+        <!-- Full Background Image -->
+        <img src="https://concept-theme-tech.myshopify.com/cdn/shop/collections/earphones.webp?v=1709198888&width=2200" 
+             alt="Earphones Case Dark Hero" 
+             class="absolute inset-0 w-full h-full object-cover object-center scale-105" />
+        
+        <!-- Subtle text gradient overlay to pop text -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+
+        <!-- Hero Content Bottom Left -->
+        <div class="absolute bottom-24 left-10 lg:left-16 z-10 text-white">
+            <div class="flex items-center gap-3 text-xs mb-3 font-medium opacity-90 tracking-wide">
+                <i class="ph ph-house text-sm"></i>
+                <span>/</span>
+                <span class="hover:underline cursor-pointer">Collections</span>
+                <span>/</span>
+                <span class="text-white">Earphones</span>
+            </div>
+            <!-- Exceptionally large title matching visual -->
+            <h1 class="text-[80px] lg:text-[110px] leading-[0.9] font-bold tracking-[-0.04em]">
+                Earphones
+            </h1>
+        </div>
     </section>
 
-    <!-- Filter Bar -->
-    <section class="sticky top-[73px] z-30 bg-white border-b border-gray-100 py-4 px-4 lg:px-6">
-      <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <!-- Category Pills -->
-        <div class="flex flex-wrap items-center gap-2">
-          <button class="filter-pill active px-5 py-2 rounded-full border border-gray-200 text-sm font-medium">All</button>
-          <button class="filter-pill px-5 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-600">In-Ear</button>
-          <button class="filter-pill px-5 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-600">True Wireless</button>
-          <button class="filter-pill px-5 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-600">Wired</button>
-          <button class="filter-pill px-5 py-2 rounded-full border border-gray-200 text-sm font-medium text-gray-600">Sport</button>
-        </div>
-
-        <div class="flex items-center gap-6">
-          <!-- Product Count -->
-          <span class="text-sm text-gray-500">8 Earphones</span>
-
-          <!-- Sort Dropdown -->
-          <div class="relative">
-            <select class="appearance-none bg-white border border-gray-200 rounded-full px-4 py-2 pr-8 text-sm font-medium text-gray-700 focus:outline-none focus:border-gray-400">
-              <option>Featured</option>
-              <option>Price: Low to High</option>
-              <option>Price: High to Low</option>
-              <option>Newest</option>
-              <option>Best Selling</option>
-            </select>
-            <i class="ph ph-caret-down absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 pointer-events-none"></i>
-          </div>
-
-          <!-- View Toggle -->
-          <div class="hidden md:flex items-center gap-1 border border-gray-200 rounded-full p-1">
-            <button class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center text-xs">
-              <i class="ph ph-grid-four text-sm"></i>
-            </button>
-            <button class="w-8 h-8 rounded-full text-gray-400 flex items-center justify-center text-xs hover:text-black">
-              <i class="ph ph-rows text-sm"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Product Grid -->
-    <section class="max-w-[1600px] mx-auto px-4 lg:px-6 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-        <!-- Product 1: Wave Whisper -->
-        <a href="#" class="bg-gray-50 rounded-2xl p-6 relative group flex flex-col h-full hover:bg-gray-100 transition-colors cursor-pointer">
-          <div class="absolute top-4 left-4 bg-green-600 text-white px-2 py-0.5 text-[10px] uppercase font-bold rounded z-10">New</div>
-          <div class="absolute top-4 right-4 bg-white/80 backdrop-blur px-2 py-0.5 text-[10px] font-bold rounded z-10 flex items-center gap-1">
-            <i class="ph-fill ph-star text-yellow-400"></i>4.8
-          </div>
-          <div class="aspect-square relative mb-6 p-4 flex items-center justify-center">
-            <img src="https://placehold.co/400x500/f3f4f6/9ca3af?text=Earphone" alt="Wave Whisper" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
-          </div>
-          <div class="mt-auto">
-            <p class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">SONICPULSE</p>
-            <div class="flex justify-between items-start gap-4 mb-3">
-              <h3 class="font-bold text-lg leading-tight">Wave Whisper</h3>
-              <span class="font-semibold text-gray-600">$129.00</span>
-            </div>
-            <div class="flex gap-1.5 mb-4">
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-black"></div>
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-white"></div>
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-[#3B82F6]"></div>
-            </div>
-            <button class="w-full py-3 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors opacity-0 group-hover:opacity-100 transition-opacity">Add to cart</button>
-          </div>
-        </a>
-
-        <!-- Product 2: Whisper Flow -->
-        <a href="#" class="bg-gray-50 rounded-2xl p-6 relative group flex flex-col h-full hover:bg-gray-100 transition-colors cursor-pointer">
-          <div class="absolute top-4 right-4 bg-white/80 backdrop-blur px-2 py-0.5 text-[10px] font-bold rounded z-10 flex items-center gap-1">
-            <i class="ph-fill ph-star text-yellow-400"></i>4.6
-          </div>
-          <div class="aspect-square relative mb-6 p-4 flex items-center justify-center">
-            <img src="https://placehold.co/400x500/f3f4f6/9ca3af?text=Earphone" alt="Whisper Flow" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
-          </div>
-          <div class="mt-auto">
-            <p class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">VIBRANCE</p>
-            <div class="flex justify-between items-start gap-4 mb-3">
-              <h3 class="font-bold text-lg leading-tight">Whisper Flow</h3>
-              <span class="font-semibold text-gray-600">$99.00</span>
-            </div>
-            <div class="flex gap-1.5 mb-4">
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-[#E5D5C5]"></div>
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-gray-800"></div>
-            </div>
-            <button class="w-full py-3 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors opacity-0 group-hover:opacity-100 transition-opacity">Add to cart</button>
-          </div>
-        </a>
-
-        <!-- Product 3: Crimson Noir -->
-        <a href="#" class="bg-gray-50 rounded-2xl p-6 relative group flex flex-col h-full hover:bg-gray-100 transition-colors cursor-pointer">
-          <div class="absolute top-4 left-4 bg-red-600 text-white px-2 py-0.5 text-[10px] uppercase font-bold rounded z-10">Sale</div>
-          <div class="absolute top-4 right-4 bg-white/80 backdrop-blur px-2 py-0.5 text-[10px] font-bold rounded z-10 flex items-center gap-1">
-            <i class="ph-fill ph-star text-yellow-400"></i>5.0
-          </div>
-          <div class="aspect-square relative mb-6 p-4 flex items-center justify-center">
-            <img src="https://placehold.co/400x500/f3f4f6/9ca3af?text=Earphone" alt="Crimson Noir" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
-          </div>
-          <div class="mt-auto">
-            <p class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">RESONANCE</p>
-            <div class="flex justify-between items-start gap-4 mb-3">
-              <h3 class="font-bold text-lg leading-tight">Crimson Noir</h3>
-              <div class="text-right">
-                <span class="font-semibold text-red-600">$169.00</span>
-                <span class="text-xs text-gray-400 line-through ml-1">$219.00</span>
-              </div>
-            </div>
-            <div class="flex gap-1.5 mb-4">
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-[#8A2B3D]"></div>
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-black"></div>
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-white"></div>
-            </div>
-            <button class="w-full py-3 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors opacity-0 group-hover:opacity-100 transition-opacity">Add to cart</button>
-          </div>
-        </a>
-
-        <!-- Promotional Card: RhythmiQ New Arrival -->
-        <div class="relative rounded-2xl overflow-hidden bg-[#1A1A1A] text-white flex flex-col justify-between min-h-[400px] group">
-          <div class="absolute inset-0 opacity-30">
-            <img src="https://placehold.co/400x500/1a1a1a/333333?text=RhythmiQ" alt="RhythmiQ Promo" class="w-full h-full object-cover">
-          </div>
-          <div class="relative z-10 p-8 flex flex-col h-full justify-between">
-            <div>
-              <span class="inline-block bg-white text-black text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-full mb-4">New Arrival</span>
-              <h3 class="text-3xl font-bold tracking-tight leading-tight mb-2">RhythmiQ</h3>
-              <p class="text-gray-400 text-sm">Compact Power Unleashed</p>
-            </div>
-            <div class="mt-8">
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-2xl font-bold">$249.00</span>
-              </div>
-              <button class="w-full py-3 bg-white text-black rounded-full text-sm font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
-                Shop Now <i class="ph ph-arrow-right"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Product 5: Pulse Beat -->
-        <a href="#" class="bg-gray-50 rounded-2xl p-6 relative group flex flex-col h-full hover:bg-gray-100 transition-colors cursor-pointer">
-          <div class="absolute top-4 right-4 bg-white/80 backdrop-blur px-2 py-0.5 text-[10px] font-bold rounded z-10 flex items-center gap-1">
-            <i class="ph-fill ph-star text-yellow-400"></i>4.7
-          </div>
-          <div class="aspect-square relative mb-6 p-4 flex items-center justify-center">
-            <img src="https://placehold.co/400x500/f3f4f6/9ca3af?text=Earphone" alt="Pulse Beat" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
-          </div>
-          <div class="mt-auto">
-            <p class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">SONICPULSE</p>
-            <div class="flex justify-between items-start gap-4 mb-3">
-              <h3 class="font-bold text-lg leading-tight">Pulse Beat</h3>
-              <span class="font-semibold text-gray-600">$149.00</span>
-            </div>
-            <div class="flex gap-1.5 mb-4">
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-[#4A5D23]"></div>
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-black"></div>
-            </div>
-            <button class="w-full py-3 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors opacity-0 group-hover:opacity-100 transition-opacity">Add to cart</button>
-          </div>
-        </a>
-
-        <!-- Product 6: Echo Bud -->
-        <a href="#" class="bg-gray-50 rounded-2xl p-6 relative group flex flex-col h-full hover:bg-gray-100 transition-colors cursor-pointer">
-          <div class="absolute top-4 left-4 bg-green-600 text-white px-2 py-0.5 text-[10px] uppercase font-bold rounded z-10">Best Seller</div>
-          <div class="absolute top-4 right-4 bg-white/80 backdrop-blur px-2 py-0.5 text-[10px] font-bold rounded z-10 flex items-center gap-1">
-            <i class="ph-fill ph-star text-yellow-400"></i>4.9
-          </div>
-          <div class="aspect-square relative mb-6 p-4 flex items-center justify-center">
-            <img src="https://placehold.co/400x500/f3f4f6/9ca3af?text=Earphone" alt="Echo Bud" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
-          </div>
-          <div class="mt-auto">
-            <p class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">VIBRANCE</p>
-            <div class="flex justify-between items-start gap-4 mb-3">
-              <h3 class="font-bold text-lg leading-tight">Echo Bud</h3>
-              <span class="font-semibold text-gray-600">$199.00</span>
-            </div>
-            <div class="flex gap-1.5 mb-4">
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-white"></div>
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-[#36454F]"></div>
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-[#E5D5C5]"></div>
-            </div>
-            <button class="w-full py-3 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors opacity-0 group-hover:opacity-100 transition-opacity">Add to cart</button>
-          </div>
-        </a>
-
-        <!-- Product 7: Air Pod Pro -->
-        <a href="#" class="bg-gray-50 rounded-2xl p-6 relative group flex flex-col h-full hover:bg-gray-100 transition-colors cursor-pointer">
-          <div class="absolute top-4 right-4 bg-white/80 backdrop-blur px-2 py-0.5 text-[10px] font-bold rounded z-10 flex items-center gap-1">
-            <i class="ph-fill ph-star text-yellow-400"></i>4.5
-          </div>
-          <div class="aspect-square relative mb-6 p-4 flex items-center justify-center">
-            <img src="https://placehold.co/400x500/f3f4f6/9ca3af?text=Earphone" alt="Air Pod Pro" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
-          </div>
-          <div class="mt-auto">
-            <p class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">RESONANCE</p>
-            <div class="flex justify-between items-start gap-4 mb-3">
-              <h3 class="font-bold text-lg leading-tight">Air Pod Pro</h3>
-              <span class="font-semibold text-gray-600">$79.00</span>
-            </div>
-            <div class="flex gap-1.5 mb-4">
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-white"></div>
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-black"></div>
-            </div>
-            <button class="w-full py-3 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors opacity-0 group-hover:opacity-100 transition-opacity">Add to cart</button>
-          </div>
-        </a>
-
-        <!-- Product 8: Sound Core -->
-        <a href="#" class="bg-gray-50 rounded-2xl p-6 relative group flex flex-col h-full hover:bg-gray-100 transition-colors cursor-pointer">
-          <div class="absolute top-4 right-4 bg-white/80 backdrop-blur px-2 py-0.5 text-[10px] font-bold rounded z-10 flex items-center gap-1">
-            <i class="ph-fill ph-star text-yellow-400"></i>4.4
-          </div>
-          <div class="aspect-square relative mb-6 p-4 flex items-center justify-center">
-            <img src="https://placehold.co/400x500/f3f4f6/9ca3af?text=Earphone" alt="Sound Core" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500">
-          </div>
-          <div class="mt-auto">
-            <p class="text-[10px] text-gray-500 uppercase tracking-wider mb-1">SONICPULSE</p>
-            <div class="flex justify-between items-start gap-4 mb-3">
-              <h3 class="font-bold text-lg leading-tight">Sound Core</h3>
-              <span class="font-semibold text-gray-600">$89.00</span>
-            </div>
-            <div class="flex gap-1.5 mb-4">
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-[#A3C1AD]"></div>
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-gray-800"></div>
-              <div class="w-4 h-4 rounded-full border border-gray-300 bg-white"></div>
-            </div>
-            <button class="w-full py-3 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors opacity-0 group-hover:opacity-100 transition-opacity">Add to cart</button>
-          </div>
-        </a>
-
-      </div>
-    </section>
-
-    <!-- Bottom Banner -->
-    <section class="max-w-[1600px] mx-auto px-4 lg:px-6 pb-16">
-      <div class="relative rounded-3xl overflow-hidden bg-[#1A1A1A] text-white">
-        <div class="absolute inset-0 opacity-20">
-          <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/collection-03.webp?v=1708443712&width=1200" alt="Earphones background" class="w-full h-full object-cover">
-        </div>
-        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center p-12 lg:p-20">
-          <div>
-            <p class="text-sm font-medium tracking-wide text-gray-400 uppercase mb-4">Why Choose Our Earphones</p>
-            <h2 class="text-3xl lg:text-[44px] font-bold tracking-tight leading-[1.1] mb-6">Precision Sound, Effortless Comfort</h2>
-            <p class="text-gray-400 text-lg mb-8 leading-relaxed">Our earphones are engineered for those who demand both exceptional audio quality and all-day comfort. With advanced noise cancellation, crystal-clear drivers, and ergonomic designs, every pair delivers an immersive listening experience that adapts to your lifestyle.</p>
-            <div class="flex flex-wrap gap-4">
-              <a href="#" class="inline-flex items-center gap-2 px-8 py-3 bg-white text-black rounded-full font-medium hover:bg-gray-100 transition-colors">
-                Shop All Earphones <i class="ph ph-arrow-right"></i>
-              </a>
-              <a href="about.html" class="inline-flex items-center gap-2 px-8 py-3 border border-white/30 text-white rounded-full font-medium hover:border-white transition-colors">
-                Our Story
-              </a>
-            </div>
-          </div>
-          <div class="flex items-center justify-center">
-            <div class="grid grid-cols-2 gap-6 text-center">
-              <div class="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10">
-                <div class="text-3xl font-bold mb-1">40h</div>
-                <p class="text-xs text-gray-400">Battery Life</p>
-              </div>
-              <div class="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10">
-                <div class="text-3xl font-bold mb-1">IPX5</div>
-                <p class="text-xs text-gray-400">Water Resistant</p>
-              </div>
-              <div class="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10">
-                <div class="text-3xl font-bold mb-1">ANC</div>
-                <p class="text-xs text-gray-400">Noise Cancelling</p>
-              </div>
-              <div class="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10">
-                <div class="text-3xl font-bold mb-1">BT 5.3</div>
-                <p class="text-xs text-gray-400">Bluetooth</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Services Icon Banner -->
-    <section class="border-t border-gray-100 py-10 px-4 lg:px-6">
-      <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="flex items-start gap-4">
-          <i class="ph ph-headset text-2xl text-gray-600 mt-1"></i>
-          <div>
-            <h4 class="font-bold mb-1">Customer service</h4>
-            <p class="text-xs text-gray-500">It's not actually free we just price it into the products.</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-4">
-          <i class="ph ph-truck text-2xl text-gray-600 mt-1"></i>
-          <div>
-            <h4 class="font-bold mb-1">Fast Free Shipping</h4>
-            <p class="text-xs text-gray-500">Get free shipping on orders of $150 or more</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-4">
-          <i class="ph ph-users text-2xl text-gray-600 mt-1"></i>
-          <div>
-            <h4 class="font-bold mb-1">Refer a friend</h4>
-            <p class="text-xs text-gray-500">Refer a friend and get 15% off each other.</p>
-          </div>
-        </div>
-        <div class="flex items-start gap-4">
-          <i class="ph ph-shield-check text-2xl text-gray-600 mt-1"></i>
-          <div>
-            <h4 class="font-bold mb-1">Secure payment</h4>
-            <p class="text-xs text-gray-500">Your payment information is processed securely</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-[#1C1C1C] text-white pt-20 pb-8 px-4 lg:px-12 border-t border-gray-800">
-    <div class="max-w-[1600px] mx-auto">
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-20">
-
-        <!-- Logo column -->
-        <div class="lg:col-span-2">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="mb-8">
-            <path d="M14.5 10V30M20.5 5V35M26.5 15V25M8.5 17V23M32.5 17V23" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <div class="mt-8 text-gray-400 font-medium">
-            <p>+21 (0) 987 6543 21</p>
-            <a href="mailto:hello@domain.com" class="hover:text-white transition-colors underline underline-offset-4 mt-2 inline-block">hello@domain.com</a>
-          </div>
-        </div>
-
-        <!-- Links 1 -->
-        <div class="lg:col-span-2 space-y-4">
-          <h4 class="font-bold text-lg mb-6">Collections</h4>
-          <ul class="space-y-3 text-sm text-gray-400">
-            <li><a href="headphones.html" class="hover:text-white transition-colors">Headphones</a></li>
-            <li><a href="earphones.html" class="hover:text-white transition-colors">Earphones</a></li>
-            <li><a href="speakers.html" class="hover:text-white transition-colors">Speakers</a></li>
-            <li><a href="accessories.html" class="hover:text-white transition-colors">Accessories</a></li>
-          </ul>
-        </div>
-
-        <!-- Links 2 -->
-        <div class="lg:col-span-3 space-y-4">
-          <h4 class="font-bold text-lg mb-6">Information</h4>
-          <ul class="space-y-3 text-sm text-gray-400">
-            <li><a href="about.html" class="hover:text-white transition-colors">Our Story</a></li>
-            <li><a href="blog.html" class="hover:text-white transition-colors">Our Journal</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">FAQs</a></li>
-            <li><a href="contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
-          </ul>
-        </div>
-
-        <!-- Newsletter -->
-        <div class="lg:col-span-5 relative z-10 w-full overflow-hidden rounded-3xl p-8" style="background-image: url('https://concept-theme-tech.myshopify.com/cdn/shop/files/newsletter-banner.webp?v=1775537883&width=1200'); background-size: cover; background-position: center;">
-          <div class="absolute inset-0 bg-black/60 bg-gradient-to-r from-black/80 to-transparent"></div>
-          <div class="relative z-10 text-white flex flex-col justify-between h-full min-h-[250px]">
-            <div>
-              <h4 class="text-2xl font-bold mb-2">Stay in the loop with our<br>weekly newsletter</h4>
-            </div>
-
-            <div class="mt-8">
-              <form class="relative w-full max-w-sm">
-                <input type="email" placeholder="Enter your email" class="w-full bg-transparent border-b border-white/40 pb-3 text-sm outline-none focus:border-white transition-colors placeholder:text-gray-400 pr-8">
-                <button type="submit" class="absolute right-0 top-0 bottom-3 text-white hover:text-gray-300">
-                  <i class="ph-fill ph-arrow-circle-right text-2xl"></i>
+    <!-- Main Content Wrapper (White block with rounded top pushing into Hero) -->
+    <main class="w-full bg-[#f4f4f4]">
+        <div class="bg-white mx-4 rounded-t-[2.5rem] relative -mt-10 z-30 pb-20 shadow-sm border border-gray-100 border-b-0 min-h-screen">
+            
+            <!-- Filters & Sorting Bar -->
+            <div class="flex flex-col md:flex-row justify-between items-center px-10 py-6 border-b border-gray-100 gap-6">
+                <!-- Left Button -->
+                <button class="border border-gray-200 rounded-full py-2.5 px-6 flex items-center gap-2 text-[13px] font-semibold hover:border-black hover:bg-gray-50 transition w-full md:w-auto justify-center">
+                    <i class="ph ph-sliders text-base"></i>
+                    Show filters
                 </button>
-              </form>
 
-              <div class="flex gap-4 mt-8">
-                <a href="#" class="text-white hover:text-gray-400 transition-colors"><i class="ph-fill ph-facebook-logo text-xl"></i></a>
-                <a href="#" class="text-white hover:text-gray-400 transition-colors"><i class="ph ph-x-logo text-xl font-bold"></i></a>
-                <a href="#" class="text-white hover:text-gray-400 transition-colors"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
-                <a href="#" class="text-white hover:text-gray-400 transition-colors"><i class="ph-fill ph-youtube-logo text-xl"></i></a>
-              </div>
+                <!-- Center Nav -->
+                <div class="flex items-center gap-6 overflow-x-auto w-full md:w-auto no-scrollbar scroll-smooth whitespace-nowrap px-2">
+                    <!-- Active State -->
+                    <a href="#" class="text-[15px] font-semibold text-black border-b border-black pb-1">
+                        All Earphones<sup class="text-[9px] text-gray-500 ml-0.5">8</sup>
+                    </a>
+                    <!-- Inactive States -->
+                    <a href="#" class="text-[15px] font-medium text-gray-400 hover:text-black transition">
+                        Sport<sup class="text-[9px] ml-0.5">6</sup>
+                    </a>
+                    <a href="#" class="text-[15px] font-medium text-gray-400 hover:text-black transition">
+                        Noise-Cancelling<sup class="text-[9px] ml-0.5">9</sup>
+                    </a>
+                    <a href="#" class="text-[15px] font-medium text-gray-400 hover:text-black transition">
+                        Limited<sup class="text-[9px] ml-0.5">4</sup>
+                    </a>
+                </div>
+
+                <!-- Right Tools -->
+                <div class="flex items-center gap-8 shrink-0">
+                    <a href="#" class="text-[13px] font-semibold underline underline-offset-4 decoration-gray-300 hover:decoration-black transition hidden md:block">Show on model</a>
+                    <button class="border border-gray-200 rounded-full py-2 px-5 flex items-center gap-4 text-[13px] font-semibold hover:border-black transition">
+                        Featured <span class="text-[8px] opacity-40">●</span>
+                    </button>
+                </div>
             </div>
-          </div>
+
+            <!-- Product Grid -->
+            <!-- Using grid with 4 columns matching the reference -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-12 px-6 lg:px-8 mt-6">
+
+                <!-- [Product 1] Crimson Noir -->
+                <div class="product-card-hover group flex flex-col cursor-pointer">
+                    <!-- Image Box -->
+                    <div class="relative bg-[#f6f6f6] rounded-2xl aspect-[1.1] flex items-center justify-center p-6 overflow-hidden">
+                        <!-- Rating Badge -->
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur pb-px px-2 rounded-full flex items-center gap-1 shadow-[0_2px_8px_rgba(0,0,0,0.04)] z-10">
+                            <i class="ph-fill ph-star text-[#f59e0b] text-[10px]"></i>
+                            <span class="text-[11px] font-bold">4.5</span>
+                        </div>
+                        <!-- Product Main Image -->
+                        <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/sonicpulse-crimsonnoir-crimsonshadow-06.webp?v=1756272188&width=2000" 
+                             alt="Sonicpulse Crimson Noir Earphones" 
+                             class="product-img w-full h-full object-contain transition-transform duration-700 ease-out z-0 mix-blend-multiply">
+                    </div>
+                    <!-- Info -->
+                    <div class="pt-5 px-1">
+                        <div class="flex justify-between items-start gap-4">
+                            <div>
+                                <p class="text-[9px] font-bold tracking-widest text-gray-400 uppercase mb-1">Sonicpulse</p>
+                                <h3 class="text-[15px] font-bold leading-snug">Crimson Noir</h3>
+                            </div>
+                            <p class="text-[13px] font-medium mt-0.5">$499.00</p>
+                        </div>
+                        <!-- Swatches -->
+                        <div class="flex gap-2 mt-3">
+                            <span class="swatch active" style="background-color: #8B0000;"></span> <!-- Red -->
+                            <span class="swatch" style="background-color: #2F4F4F;"></span> <!-- Dark fallback -->
+                        </div>
+                        <!-- Features Icons row -->
+                        <div class="flex items-center justify-between gap-2 border-t border-gray-100 mt-5 pt-4">
+                            <div class="flex items-center gap-1.5 w-1/3 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/driver-size.svg?v=1741253800&width=32" alt="9.2mm Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">9.2mm</span><br><span class="scale-90 origin-left inline-block">Driver size</span></div>
+                            </div>
+                            <div class="flex items-center gap-1.5 w-1/3 border-l border-gray-100 pl-4 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/dust-waterproof.svg?v=1741254992&width=32" alt="IP57 Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">IP57</span><br><span class="scale-90 origin-left inline-block">Dust & waterproof</span></div>
+                            </div>
+                            <div class="flex items-center gap-1.5 w-1/3 border-l border-gray-100 pl-4 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/battery-life.svg?v=1741253799&width=32" alt="20h Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">20h</span><br><span class="scale-90 origin-left inline-block">Battery life</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- [Product 2] Pulse Dot -->
+                <div class="product-card-hover group flex flex-col cursor-pointer">
+                    <div class="relative bg-[#f6f6f6] rounded-2xl aspect-[1.1] flex items-center justify-center p-6 overflow-hidden">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur pb-px px-2 rounded-full flex items-center gap-1 shadow-[0_2px_8px_rgba(0,0,0,0.04)] z-10">
+                            <i class="ph-fill ph-star text-[#f59e0b] text-[10px]"></i>
+                            <span class="text-[11px] font-bold">5.0</span>
+                        </div>
+                        <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/soundsphere-pulsedot-blue-05.webp?v=1756272308&width=2000" 
+                             alt="Soundsphere Pulse Dot Earphones" 
+                             class="product-img w-full h-full object-contain transition-transform duration-700 ease-out z-0 mix-blend-multiply drop-shadow-md">
+                    </div>
+                    <div class="pt-5 px-1">
+                        <div class="flex justify-between items-start gap-4">
+                            <div>
+                                <p class="text-[9px] font-bold tracking-widest text-gray-400 uppercase mb-1">Soundsphere</p>
+                                <h3 class="text-[15px] font-bold leading-snug">Pulse Dot</h3>
+                            </div>
+                            <p class="text-[13px] font-medium mt-0.5">$249.00</p>
+                        </div>
+                        <div class="flex gap-2 mt-3">
+                            <span class="swatch active" style="background-color: #A4B8D1;"></span>
+                            <span class="swatch" style="background-color: #2F4F4F;"></span>
+                            <span class="swatch" style="background-color: #E2DDD5;"></span>
+                            <span class="swatch" style="background-color: #1a1a1a;"></span>
+                        </div>
+                        <div class="flex items-center justify-between gap-2 border-t border-gray-100 mt-5 pt-4">
+                            <!-- Utilizing provided SVG assets with changed text values -->
+                            <div class="flex items-center gap-1.5 w-1/3 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/driver-size.svg?v=1741253800&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">5.7mm</span><br><span class="scale-90 origin-left inline-block">Driver size</span></div>
+                            </div>
+                            <div class="flex items-center gap-1.5 w-1/3 border-l border-gray-100 pl-4 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/dust-waterproof.svg?v=1741254992&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">IP54</span><br><span class="scale-90 origin-left inline-block">Dust & waterproof</span></div>
+                            </div>
+                            <div class="flex items-center gap-1.5 w-1/3 border-l border-gray-100 pl-4 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/battery-life.svg?v=1741253799&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">7h</span><br><span class="scale-90 origin-left inline-block">Battery life</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- [Product 3] Whisper Flow -->
+                <div class="product-card-hover group flex flex-col cursor-pointer">
+                    <div class="relative bg-[#f6f6f6] rounded-2xl aspect-[1.1] flex items-center justify-center p-6 overflow-hidden">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur pb-px px-2 rounded-full flex items-center gap-1 shadow-[0_2px_8px_rgba(0,0,0,0.04)] z-10">
+                            <i class="ph-fill ph-star text-[#f59e0b] text-[10px]"></i>
+                            <span class="text-[11px] font-bold">5.0</span>
+                        </div>
+                        <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/resonance-whisperflow-sand-05.webp?v=1756272077&width=2000" 
+                             alt="Resonance Whisper Flow Earbuds" 
+                             class="product-img w-full h-full object-contain transition-transform duration-700 ease-out z-0 mix-blend-multiply drop-shadow-sm">
+                    </div>
+                    <div class="pt-5 px-1">
+                        <div class="flex justify-between items-start gap-4">
+                            <div>
+                                <p class="text-[9px] font-bold tracking-widest text-gray-400 uppercase mb-1">Resonance</p>
+                                <h3 class="text-[15px] font-bold leading-snug">Whisper Flow</h3>
+                            </div>
+                            <p class="text-[13px] font-medium mt-0.5">$399.00</p>
+                        </div>
+                        <div class="flex gap-2 mt-3">
+                            <span class="swatch active" style="background-color: #D2B48C;"></span>
+                            <span class="swatch" style="background-color: #808080;"></span>
+                            <span class="swatch" style="background-color: #000000;"></span>
+                        </div>
+                        <div class="flex items-center justify-between gap-2 border-t border-gray-100 mt-5 pt-4">
+                            <div class="flex items-center gap-1.5 w-1/3 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/driver-size.svg?v=1741253800&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">6.8mm</span><br><span class="scale-90 origin-left inline-block">Driver size</span></div>
+                            </div>
+                            <div class="flex items-center gap-1.5 w-1/3 border-l border-gray-100 pl-4 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/dust-waterproof.svg?v=1741254992&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">IP54</span><br><span class="scale-90 origin-left inline-block">Dust & waterproof</span></div>
+                            </div>
+                            <div class="flex items-center gap-1.5 w-1/3 border-l border-gray-100 pl-4 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/battery-life.svg?v=1741253799&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">6.5h</span><br><span class="scale-90 origin-left inline-block">Battery life</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- [Block 4] Internal Banner / Promo Card -->
+                <div class="relative bg-gray-900 rounded-2xl flex flex-col justify-end p-8 text-white overflow-hidden aspect-[1.1] md:aspect-auto">
+                    <!-- Background Asset #26 -->
+                    <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/collection-earphones-accessories.webp?v=1709096049&width=1200" 
+                         alt="Accessories Fabric Background" 
+                         class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-luminosity brightness-75">
+                         
+                    <!-- Overlay Top Right Icon Asset #27 -->
+                    <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/collection-earphones-accessories.svg?v=1696402546&width=55" 
+                         alt="Earphones Accessories Graphic" 
+                         class="absolute top-6 right-6 w-14 h-14 z-10 opacity-90">
+                         
+                    <div class="relative z-10 w-full text-center mt-auto flex flex-col items-center pt-20">
+                        <h3 class="text-2xl font-bold leading-tight mb-3">Earphones<br>Accessories</h3>
+                        <p class="text-xs font-medium opacity-80 mb-6 w-4/5 leading-relaxed">Keep your earphones in optimal condition for years.</p>
+                        
+                        <a href="#" class="border border-white/50 rounded-full py-2.5 px-6 flex items-center justify-between min-w-[200px] hover:bg-white hover:text-black transition duration-300">
+                            <span class="text-sm font-semibold">View Accessories</span>
+                            <i class="ph ph-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- [Product 4] Wave Whisper -->
+                <div class="product-card-hover group flex flex-col cursor-pointer">
+                    <div class="relative bg-[#f6f6f6] rounded-2xl aspect-[1.1] flex items-center justify-center p-6 overflow-hidden">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur pb-px px-2 rounded-full flex items-center gap-1 shadow-[0_2px_8px_rgba(0,0,0,0.04)] z-10">
+                            <i class="ph-fill ph-star text-[#f59e0b] text-[10px]"></i>
+                            <span class="text-[11px] font-bold">4.5</span>
+                        </div>
+                        <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/aureal-wavewhisper-goldtone-05.webp?v=1756271950&width=2000" 
+                             alt="Aureal Wave Whisper Earplugs" 
+                             class="product-img w-full h-full object-contain transition-transform duration-700 ease-out z-0 mix-blend-multiply drop-shadow-sm scale-90">
+                    </div>
+                    <div class="pt-5 px-1">
+                        <div class="flex justify-between items-start gap-4">
+                            <div>
+                                <p class="text-[9px] font-bold tracking-widest text-gray-400 uppercase mb-1">Aureal</p>
+                                <h3 class="text-[15px] font-bold leading-snug">Wave Whisper</h3>
+                            </div>
+                            <p class="text-[13px] font-medium mt-0.5">$399.00</p>
+                        </div>
+                        <div class="flex gap-2 mt-3">
+                            <span class="swatch active" style="background-color: #D2B48C;"></span>
+                            <span class="swatch" style="background-color: #A0522D;"></span>
+                        </div>
+                        <div class="flex items-center justify-between gap-2 border-t border-gray-100 mt-5 pt-4">
+                            <div class="flex items-center gap-1.5 w-1/3 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/driver-size.svg?v=1741253800&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">9.2mm</span><br><span class="scale-90 origin-left inline-block">Driver size</span></div>
+                            </div>
+                            <div class="flex items-center gap-1.5 w-1/3 border-l border-gray-100 pl-4 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/dust-waterproof.svg?v=1741254992&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">IP57</span><br><span class="scale-90 origin-left inline-block">Dust & waterproof</span></div>
+                            </div>
+                            <div class="flex items-center gap-1.5 w-1/3 border-l border-gray-100 pl-4 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/battery-life.svg?v=1741253799&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">20h</span><br><span class="scale-90 origin-left inline-block">Battery life</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- [Product 5] RhythmiQ -->
+                <div class="product-card-hover group flex flex-col cursor-pointer">
+                    <div class="relative bg-[#f6f6f6] rounded-2xl aspect-[1.1] flex items-center justify-center p-6 overflow-hidden">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur pb-px px-2 rounded-full flex items-center gap-1 shadow-[0_2px_8px_rgba(0,0,0,0.04)] z-10">
+                            <i class="ph-fill ph-star text-[#f59e0b] text-[10px]"></i>
+                            <span class="text-[11px] font-bold">5.0</span>
+                        </div>
+                        <div class="absolute top-4 left-4 bg-black text-white text-[9px] font-bold uppercase tracking-wider py-1 px-3 rounded-full z-10">New Arrival</div>
+                        <!-- Using image #34 visually open case as per clone -->
+                        <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/sonicpulse-rhythmiq-anthracite-02.webp?v=1708797520&width=2000" 
+                             alt="Sonicpulse RhythmiQ Earphones" 
+                             class="product-img w-full h-full object-contain transition-transform duration-700 ease-out z-0 mix-blend-multiply drop-shadow-xl scale-110">
+                    </div>
+                    <div class="pt-5 px-1">
+                        <div class="flex justify-between items-start gap-4">
+                            <div>
+                                <p class="text-[9px] font-bold tracking-widest text-gray-400 uppercase mb-1">Sonicpulse</p>
+                                <h3 class="text-[15px] font-bold leading-snug">RhythmiQ</h3>
+                            </div>
+                            <p class="text-[13px] font-medium mt-0.5">$399.00</p>
+                        </div>
+                        <div class="flex gap-2 mt-3">
+                            <span class="swatch active" style="background-color: #1a1a1a;"></span>
+                        </div>
+                        <div class="flex items-center justify-between gap-2 border-t border-gray-100 mt-5 pt-4">
+                            <div class="flex items-center gap-1.5 w-1/3 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/driver-size.svg?v=1741253800&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">9.2mm</span><br><span class="scale-90 origin-left inline-block">Driver size</span></div>
+                            </div>
+                            <div class="flex items-center gap-1.5 w-1/3 border-l border-gray-100 pl-4 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/dust-waterproof.svg?v=1741254992&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">IP57</span><br><span class="scale-90 origin-left inline-block">Dust & waterproof</span></div>
+                            </div>
+                            <div class="flex items-center gap-1.5 w-1/3 border-l border-gray-100 pl-4 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/battery-life.svg?v=1741253799&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">20h</span><br><span class="scale-90 origin-left inline-block">Battery life</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- [Product 6] Aqua Sprint -->
+                <div class="product-card-hover group flex flex-col cursor-pointer">
+                    <div class="relative bg-[#f6f6f6] rounded-2xl aspect-[1.1] flex items-center justify-center p-6 overflow-hidden">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur pb-px px-2 rounded-full flex items-center gap-1 shadow-[0_2px_8px_rgba(0,0,0,0.04)] z-10">
+                            <i class="ph-fill ph-star text-[#f59e0b] text-[10px]"></i>
+                            <span class="text-[11px] font-bold">4.5</span>
+                        </div>
+                        <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/aureal-aquasprint-pink-05.webp?v=1756271842&width=2000" 
+                             alt="Aureal Aqua Sprint Pink Case" 
+                             class="product-img w-full h-full object-contain transition-transform duration-700 ease-out z-0 mix-blend-multiply drop-shadow-md scale-105">
+                    </div>
+                    <div class="pt-5 px-1">
+                        <div class="flex justify-between items-start gap-4">
+                            <div>
+                                <p class="text-[9px] font-bold tracking-widest text-gray-400 uppercase mb-1">Aureal</p>
+                                <h3 class="text-[15px] font-bold leading-snug">Aqua Sprint</h3>
+                            </div>
+                            <p class="text-[13px] font-medium mt-0.5">$349.00</p>
+                        </div>
+                        <div class="flex gap-2 mt-3">
+                            <span class="swatch active" style="background-color: #FFB6C1;"></span>
+                        </div>
+                        <div class="flex items-center justify-between gap-2 border-t border-gray-100 mt-5 pt-4">
+                            <div class="flex items-center gap-1.5 w-1/3 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/driver-size.svg?v=1741253800&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">5.7mm</span><br><span class="scale-90 origin-left inline-block">Driver size</span></div>
+                            </div>
+                            <div class="flex items-center gap-1.5 w-1/3 border-l border-gray-100 pl-4 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/dust-waterproof.svg?v=1741254992&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">IP57</span><br><span class="scale-90 origin-left inline-block">Dust & waterproof</span></div>
+                            </div>
+                            <div class="flex items-center gap-1.5 w-1/3 border-l border-gray-100 pl-4 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/battery-life.svg?v=1741253799&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">7h</span><br><span class="scale-90 origin-left inline-block">Battery life</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- [Product 7] Stealth Precision -->
+                <div class="product-card-hover group flex flex-col cursor-pointer">
+                    <div class="relative bg-[#f6f6f6] rounded-2xl aspect-[1.1] flex items-center justify-center p-6 overflow-hidden">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur pb-px px-2 rounded-full flex items-center gap-1 shadow-[0_2px_8px_rgba(0,0,0,0.04)] z-10">
+                            <i class="ph-fill ph-star text-[#f59e0b] text-[10px]"></i>
+                            <span class="text-[11px] font-bold">5.0</span>
+                        </div>
+                        <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/resonance-stealthprecision-black-05.webp?v=1709197901&width=2000" 
+                             alt="Resonance Stealth Precision Earphones" 
+                             class="product-img w-full h-full object-contain transition-transform duration-700 ease-out z-0 mix-blend-multiply scale-90">
+                    </div>
+                    <div class="pt-5 px-1">
+                        <div class="flex justify-between items-start gap-4">
+                            <div>
+                                <p class="text-[9px] font-bold tracking-widest text-gray-400 uppercase mb-1">Resonance</p>
+                                <h3 class="text-[15px] font-bold leading-snug">Stealth Precision</h3>
+                            </div>
+                            <p class="text-[13px] font-medium mt-0.5">$250.00</p>
+                        </div>
+                        <div class="flex gap-2 mt-3 text-[10px] font-semibold tracking-wide text-gray-500 uppercase">
+                            Corded
+                        </div>
+                        <!-- Features row -->
+                        <div class="flex items-center justify-between gap-2 border-t border-gray-100 mt-5 pt-4">
+                            <div class="flex items-center gap-1.5 w-1/3 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/driver-size.svg?v=1741253800&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">10.8mm</span><br><span class="scale-90 origin-left inline-block">Driver size</span></div>
+                            </div>
+                            <div class="flex items-center gap-1.5 w-1/3 border-l border-gray-100 pl-4 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/dust-waterproof.svg?v=1741254992&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">IP54</span><br><span class="scale-90 origin-left inline-block">Dust & waterproof</span></div>
+                            </div>
+                            <div class="flex items-center gap-1.5 w-1/3 border-l border-gray-100 pl-4 text-[10px] text-gray-500 font-medium leading-none">
+                                <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/battery-life.svg?v=1741253799&width=32" alt="Icon" class="w-5 h-5 opacity-50 block">
+                                <div><span class="text-black font-semibold text-[11px]">20h</span><br><span class="scale-90 origin-left inline-block">Battery life</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex items-center justify-center gap-5 pb-10 pt-20">
+                <span class="w-10 h-10 bg-black text-white rounded-full flex items-center justify-center text-sm font-semibold cursor-default">1</span>
+                <a href="#" class="w-10 h-10 text-gray-400 hover:text-black flex items-center justify-center text-sm font-semibold transition">2</a>
+                <a href="#" class="flex items-center gap-2 text-sm font-semibold ml-4 hover:border-b hover:border-black transition border-b border-transparent pb-0.5">
+                    Next <i class="ph ph-arrow-right"></i>
+                </a>
+            </div>
+
+        </div> <!-- End White Block -->
+    </main>
+
+    <!-- Bottom Collage / Informational Banner -->
+    <section class="max-w-full mx-2 md:mx-4 mt-8 mb-8 pb-4 relative overflow-hidden bg-[#111111] text-white rounded-3xl min-h-[400px] flex items-center">
+        <!-- Background Assets -> Emulating Collage structure by overlaying provided bg thumbnails or CSS -->
+        <div class="absolute inset-0 z-0">
+            <!-- Simulated large complex background collage through CSS gradients and provided assets duplicated/styled -->
+            <!-- Note: Assets #49 and #50 are 128px patterns. The visual design shows massive atmospheric face photography dark blocks -->
+            <!-- Using absolute CSS gradient blends for atmospheric match -->
+            <div class="absolute right-0 top-0 bottom-0 w-2/3 bg-gradient-to-l from-[#1e1c24] to-[#111111] z-0"></div>
+            <!-- Incorporating required elements without exposing broken huge images -->
+            <div class="absolute right-0 top-0 w-full h-full opacity-30 mix-blend-overlay" style="background-image: url('//concept-theme-tech.myshopify.com/cdn/shop/files/anthracite.webp?v=1708619230&width=128'); background-size: cover; background-repeat: repeat;"></div>
+            <div class="absolute right-0 bottom-0 w-full h-1/2 opacity-20 mix-blend-color-burn" style="background-image: url('//concept-theme-tech.myshopify.com/cdn/shop/files/crimson-shadow.webp?v=1708619200&width=128'); background-size: cover;"></div>
+            
+            <!-- Structural line splits from design (diagonal shards) -->
+            <svg class="absolute inset-0 w-full h-full opacity-[0.03]" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <polygon points="50,0 100,0 100,100 40,100" fill="white"/>
+            </svg>
+            <svg class="absolute inset-0 w-full h-full opacity-[0.02]" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <polygon points="70,0 100,0 100,50 30,100 0,100" fill="white"/>
+            </svg>
         </div>
 
-      </div>
+        <div class="relative z-10 w-full max-w-4xl px-8 md:px-14 py-16">
+            <img src="https://concept-theme-tech.myshopify.com/cdn/shop/files/scrolled-banner-earphones.svg?v=1696580887&width=48" 
+                 alt="Scrolled Banner Icon" 
+                 class="w-[48px] h-[48px] mb-8 opacity-90 invert pt-2 pl-1">
+                 
+            <h4 class="text-[10px] tracking-[0.25em] font-bold text-white/50 uppercase mb-4">Earphones</h4>
+            <h2 class="text-5xl md:text-6xl font-extrabold leading-[1.05] tracking-tight mb-8">
+                In-Ear Clarity &<br>Precision
+            </h2>
+            <p class="text-sm md:text-base text-gray-400 font-medium max-w-lg leading-relaxed">
+                Slide into a world where detail meets portability. Our in-ear selections deliver a powerful auditory experience, ensuring that every genre of music feels alive. Lightweight and ergonomic, they're designed for both music aficionados and everyday listeners.
+            </p>
+        </div>
+    </section>
 
-      <!-- Footer Bottom -->
-      <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-800 text-[10px] text-gray-500 gap-4">
-        <p>&copy; 2024 Concept Theme Tech. <a href="#" class="underline">Powered by Shopify</a></p>
+    <!-- Support Features Bar -->
+    <section class="bg-white py-14 px-6 md:px-12 border-b border-gray-100 flex justify-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 max-w-[1400px] w-full">
+            <div class="flex flex-col gap-3">
+                <i class="ph ph-headset text-2xl text-black"></i>
+                <div>
+                    <h5 class="text-[13px] font-bold text-gray-900 leading-tight">Customer service</h5>
+                    <p class="text-[13px] text-gray-500 mt-1 pr-6 leading-relaxed">It's not actually free we just price it into the products.</p>
+                </div>
+            </div>
+            <div class="flex flex-col gap-3">
+                <i class="ph ph-package text-2xl text-black"></i>
+                <div>
+                    <h5 class="text-[13px] font-bold text-gray-900 leading-tight">Fast Free Shipping</h5>
+                    <p class="text-[13px] text-gray-500 mt-1 pr-6 leading-relaxed">Get free shipping on orders of $150 or more</p>
+                </div>
+            </div>
+            <div class="flex flex-col gap-3">
+                <i class="ph ph-users text-2xl text-black"></i>
+                <div>
+                    <h5 class="text-[13px] font-bold text-gray-900 leading-tight">Refer a friend</h5>
+                    <p class="text-[13px] text-gray-500 mt-1 pr-6 leading-relaxed">Refer a friend and get 15% off each other.</p>
+                </div>
+            </div>
+            <div class="flex flex-col gap-3">
+                <i class="ph ph-shield-check text-2xl text-black"></i>
+                <div>
+                    <h5 class="text-[13px] font-bold text-gray-900 leading-tight">Secure payment</h5>
+                    <p class="text-[13px] text-gray-500 mt-1 pr-6 leading-relaxed">Your payment information is processed securely</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <div class="flex gap-6 items-center">
-          <button class="flex items-center gap-1 hover:text-white transition-colors">
-            <i class="ph ph-globe"></i> English <i class="ph ph-caret-down"></i>
-          </button>
-          <button class="flex items-center gap-1 hover:text-white transition-colors">
-            <i class="ph ph-currency-dollar"></i> United States (USD $) <i class="ph ph-caret-down"></i>
-          </button>
+    <!-- Footer -->
+    <footer class="bg-[#181818] text-white pt-20 pb-8 px-8 md:px-16" style="background-color: #1a1a1a;">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 max-w-screen-2xl mx-auto">
+            
+            <!-- Col 1: Brand & Contact -->
+            <div class="md:col-span-3 flex flex-col items-start pr-8">
+                <!-- Reused Wave Logo -->
+                <a href="#" class="logo-wave text-white border-none group mb-8">
+                    <div class="logo-bar w-1.5 h-3 opacity-60"></div>
+                    <div class="logo-bar w-1.5 h-6 opacity-80"></div>
+                    <div class="logo-bar w-2 h-8"></div>
+                    <div class="logo-bar w-2 h-10"></div>
+                    <div class="logo-bar w-2 h-8"></div>
+                    <div class="logo-bar w-1.5 h-6 opacity-80"></div>
+                    <div class="logo-bar w-1.5 h-3 opacity-60"></div>
+                </a>
+                
+                <a href="tel:+210987654321" class="text-2xl font-medium tracking-tight hover:text-gray-300 transition mt-auto leading-none">+21 (0) 987 6543 21</a>
+                <a href="mailto:hello@domain.com" class="text-2xl font-medium tracking-tight mt-1 underline underline-offset-4 decoration-gray-600 hover:decoration-white transition leading-none pb-2">hello@domain.com</a>
+            </div>
+
+            <!-- Col 2: Collections Links -->
+            <div class="md:col-span-2 md:pl-4">
+                <h6 class="text-[15px] font-bold mb-6 mt-1">Collections</h6>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="#" class="text-[13px] text-gray-400 hover:text-white transition inline-block">Headphones</a></li>
+                    <li><a href="#" class="text-[13px] text-gray-400 hover:text-white transition inline-block">Earphones</a></li>
+                    <li><a href="#" class="text-[13px] text-gray-400 hover:text-white transition inline-block">Speakers</a></li>
+                    <li><a href="#" class="text-[13px] text-gray-400 hover:text-white transition inline-block">Accessories</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Information Links -->
+            <div class="md:col-span-2">
+                <h6 class="text-[15px] font-bold mb-6 mt-1">Information</h6>
+                <ul class="flex flex-col gap-3">
+                    <li><a href="#" class="text-[13px] text-gray-400 hover:text-white transition inline-block">Our Story</a></li>
+                    <li><a href="#" class="text-[13px] text-gray-400 hover:text-white transition inline-block">Our Journal</a></li>
+                    <li><a href="#" class="text-[13px] text-gray-400 hover:text-white transition inline-block">FAQs</a></li>
+                    <li><a href="#" class="text-[13px] text-gray-400 hover:text-white transition inline-block">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4: Newsletter -->
+            <div class="md:col-span-5 flex flex-col h-full bg-cover">
+                <h3 class="text-[32px] font-bold leading-[1.1] mb-8 tracking-tight max-w-[340px]">
+                    Stay in the loop with our weekly newsletter
+                </h3>
+                <form class="relative w-full max-w-[380px]">
+                    <input type="email" placeholder="Enter your email" required
+                           class="w-full bg-[#2a2a2a] text-sm text-white placeholder-gray-400 rounded-full py-4 pl-6 pr-16 focus:outline-none focus:ring-1 focus:ring-gray-400 transition" />
+                    <button type="submit" class="absolute right-[6px] top-[6px] bottom-[6px] w-[36px] bg-white text-black flex justify-center items-center rounded-full hover:bg-gray-200 transition">
+                        <i class="ph text-lg ph-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="mt-8 flex gap-5 text-gray-400">
+                    <a href="#" class="hover:text-white transition"><i class="ph-fill ph-facebook-logo text-[1.3rem]"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="ph-fill ph-x-logo text-[1.3rem]"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="ph text-[1.3rem] ph-instagram-logo"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="ph-fill text-[1.3rem] ph-youtube-logo"></i></a>
+                </div>
+            </div>
         </div>
 
-        <!-- Payment Icons -->
-        <div class="flex gap-1.5 opacity-60">
-          <div class="w-7 h-4 bg-white/10 rounded-sm"></div>
-          <div class="w-7 h-4 bg-white/10 rounded-sm"></div>
-          <div class="w-7 h-4 bg-white/10 rounded-sm"></div>
-          <div class="w-7 h-4 bg-white/10 rounded-sm"></div>
-          <div class="w-7 h-4 bg-white/10 rounded-sm"></div>
-          <div class="w-7 h-4 bg-white/10 rounded-sm"></div>
+        <!-- Footer Bottom Bar -->
+        <div class="mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6 text-[11px] text-gray-500 font-medium">
+            <p>© 2026 Concept Theme Tech. <a href="#" class="underline hover:text-white transition">Powered by Shopify</a></p>
+            
+            <div class="flex items-center gap-6">
+                <!-- Selectors repeated from top -->
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-gray-300 transition">
+                        <i class="ph ph-globe text-sm"></i>
+                        <span>English</span>
+                        <i class="ph ph-caret-down text-[10px]"></i>
+                    </div>
+                    <div class="flex items-center gap-2 cursor-pointer hover:text-gray-300 transition">
+                        <i class="ph ph-currency-dollar text-sm"></i>
+                        <span>United States (USD $)</span>
+                        <i class="ph ph-caret-down text-[10px]"></i>
+                    </div>
+                </div>
+                
+                <!-- Payment Methods Mockup -->
+                <div class="flex items-center gap-1.5 opacity-60">
+                    <div class="px-1.5 py-0.5 bg-gray-100 rounded-sm"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Apple_Pay_logo.svg" alt="Apple Pay" class="h-3 filter grayscale"></div>
+                    <div class="px-1.5 py-0.5 bg-gray-100 rounded-sm"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Pay" class="h-3 filter grayscale"></div>
+                    <div class="px-1.5 py-0.5 bg-gray-100 rounded-sm"><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="G Pay" class="h-3 filter grayscale"></div>
+                    <div class="px-1.5 py-0.5 bg-gray-100 rounded-sm flex items-center text-[8px] font-bold text-black border">Klarna.</div>
+                    <div class="px-1.5 py-0.5 bg-gray-100 rounded-sm"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg" alt="Mastercard" class="h-3 filter grayscale"></div>
+                    <div class="px-1.5 py-0.5 bg-[#5968ba] rounded-sm text-white text-[8px] font-bold">shop</div>
+                    <div class="px-1.5 py-0.5 bg-[#1a1f71] rounded-sm text-white text-[8px] font-bold italic">VISA</div>
+                </div>
+            </div>
         </div>
-      </div>
+    </footer>
 
-    </div>
-  </footer>
-
-  <script>
 </body>
 </html>
